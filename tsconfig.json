@@ -1,4 +1,24 @@
 {
+  "compilerOptions": {
+    "target": "es5",
+    "module": "esnext",
+    "jsx": "react-jsx",
+    "strict": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "baseUrl": "src",
+    "paths": {
+      "@actions/*": ["actions/*"],
+      "@components/*": ["components/*"],
+      "@containers/*": ["containers/*"],
+      "@pages/*": ["pages/*"],
+      "@utils/*": ["utils/*"],
+      "@reduxStore/*": ["reduxStore/*"],
+      "@types": ["types"],
+      "@/*": ["*"]   // <‑‑ NEW
+    },
+    "types": ["node", "react", "react-dom"]
+  },
   "files": [],
   "references": [
     { "path": "./tsconfig.app.json" },
