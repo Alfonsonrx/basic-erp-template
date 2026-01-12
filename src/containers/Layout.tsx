@@ -6,7 +6,6 @@ import Navbar from "@components/Navbar";
 import Sidebar from "@components/Sidebar";
 import { useSelector } from "react-redux";
 import type { RootState } from "@/types";
-import React from "react";
 
 function Layout() {
   const theme = useSelector((state: RootState) => state.theme.theme);
