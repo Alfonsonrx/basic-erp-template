@@ -11,15 +11,17 @@ const navItems = [
 
 const Sidebar = () => {
   return (
-    <aside className="bg-white w-64 bg-muted text-muted-foreground h-full p-4 flex flex-col gap-2">
-      {navItems.map((item) => (
-        <Link key={item.to} to={item.to}>
-          <button className="flex items-center w-full justify-start gap-3">
-            {item.icon}
-            {item.label}
-          </button>
-        </Link>
-      ))}
+    <aside className="bg-white w-64 bg-muted text-muted-foreground h-full p-6 flex flex-col justify-between">
+      <nav className="flex flex-col gap-4">
+        {navItems.map((item) => (
+          <Link key={item.to} to={item.to}>
+            <button className="flex items-center w-full justify-start gap-3 text-left">
+              {item.icon}
+              {item.label}
+            </button>
+          </Link>
+        ))}
+      </nav>
       <div className="mt-auto">
         <Link to="/clients/add">
           <button className="flex items-center w-full gap-2">
