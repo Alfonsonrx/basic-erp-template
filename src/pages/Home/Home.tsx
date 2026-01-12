@@ -24,7 +24,7 @@ const quickStartItems = [
 function Home() {
   return (
     <div className="space-y-8">
-      <h1 className="text-3xl font-bold text-gray-900">Welcome to the ERP</h1>
+      <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-400">Welcome to the ERP</h1>
       <CardGrid items={quickStartItems} />
     </div>
   );
