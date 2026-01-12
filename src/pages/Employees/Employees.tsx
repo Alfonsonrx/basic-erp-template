@@ -1,7 +1,5 @@
 "use client";
 
-import React from 'react';
-
 const dummyEmployees = [
   { id: 1, name: 'Alice Johnson', role: 'Manager' },
   { id: 2, name: 'Bob Smith', role: 'Developer' },

@@ -1,8 +1,8 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "./containers/Layout";
 import { Home } from "@/pages/Home";
-import { Employees } from "@/pages/Employees";
-import { Clients } from "@/pages/Clients";
+import { Employees } from "@pages/Employees";
+import { Clients } from "@pages/Clients";
 
 function App() {
   return (
