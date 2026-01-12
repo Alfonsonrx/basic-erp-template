@@ -26,6 +26,14 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Theme‑specific body background overrides */
+[data-theme="light"] .bg-background {
+  @apply bg-white; /* default light background */
+}
+[data-theme="dark"] .bg-background {
+  @apply bg-gray-950; /* dark background from Tailwind */
+}
+
 @layer base {
   :root,
   [data-theme="light-corporate"] {
