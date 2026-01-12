@@ -7,10 +7,8 @@ import { CardGrid } from "@/components/CardGrid";
 import { PlusCircle, BarChart2, Box } from "lucide-react";
 
 const themeOptions = [
-  { value: "light-corporate", label: "Light Corporate" },
-  { value: "dark-corporate", label: "Dark Corporate" },
-  { value: "purple-dream", label: "Purple Dream" },
-  { value: "green-forest", label: "Green Forest" },
+  { value: "light", label: "Light" },
+  { value: "dark", label: "Dark" },
 ];
 
 export default function Settings() {
@@ -18,7 +16,7 @@ export default function Settings() {
   const currentTheme = useSelector((state: RootState) => state.theme.theme);
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    dispatch(setTheme(e.target.value as typeof themeOptions[number]["value"]));
+    dispatch(setTheme(e.target.value as "light" | "dark"));
   };
 
   return (

@@ -2,6 +2,38 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+@theme {
+  --font-sans: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --color-dark-green-500: #1a3c34;
+  --color-dark-green-900: #0f2419;
+  --color-dark-background: oklch(21% 0.034 264.665);
+  --color-dark-card: oklch(0.18 0.025 180);
+  --color-light-gray: #f1f7f6;
+  --color-light-green-500: #044e29;
+}
+
+:root {
+  font-family: var(--font-sans);
+  line-height: 1.5;
+  font-weight: 400;
+
+  transition: background-color 1s ease, color 1s ease, border-color 1s ease;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Theme‑specific body background overrides */
+[data-theme="light"] .bg-background {
+  @apply bg-white; /* default light background */
+}
+[data-theme="dark"] .bg-background {
+  @apply bg-gray-950; /* dark background from Tailwind */
+}
+
 @layer base {
   :root,
   [data-theme="light-corporate"] {
@@ -29,16 +61,4 @@
     --color-primary:    22 163 74;
     /* ... */
   }
-}
-:root {
-  font-family: var(--font-sans);
-  line-height: 1.5;
-  font-weight: 400;
-
-  transition: background-color 1s ease, color 1s ease, border-color 1s ease;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
