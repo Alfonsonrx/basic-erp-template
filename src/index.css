@@ -1,40 +1,56 @@
 @import "tailwindcss";
 
+/* Enable dark: variant when .dark is on html */
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* Semantic tokens – what you actually use in components */
 @theme {
-  --font-sans: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --color-dark-green-500: #1a3c34;
-  --color-dark-green-900: #0f2419;
-  --color-dark-background: oklch(21% 0.034 264.665);
-  --color-dark-card: oklch(0.18 0.025 180);
-  --color-light-gray: #f1f7f6;
-  --color-light-green-500: #044e29;
+  --color-primary:          oklch(0.68 0.25 295);
+  --color-primary-foreground: white;
+  --color-background:       oklch(98% 0.01 200);
+  --color-foreground:       oklch(20% 0.04 240);
+  --color-muted:            oklch(55% 0.03 240);
+  --color-card:             white;
+  --color-border:           oklch(90% 0.02 240);
+  --color-muted-foreground: oklch(45% 0.04 240);
 }
 
-:root {
-  font-family: var(--font-sans);
-  line-height: 1.5;
-  font-weight: 400;
-
-  transition: background-color 1s ease, color 1s ease, border-color 1s ease;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-@layer utilities {
-  /* Hide scrollbar for Chrome, Safari, and Opera */
-  .scrollbar-hidden::-webkit-scrollbar {
-    display: none;
+/* Theme pairs – override semantics per company + light/dark */
+@layer theme {
+  /* ── CORPORATE (default/example) ── */
+  .theme-corporate {
+    --color-primary:          oklch(0.65 0.18 142);     /* green-ish corporate */
+    --color-primary-foreground: white;
+    --color-background:       oklch(0.98 0.015 200);
+    --color-foreground:       oklch(0.18 0.04 260);
+    --color-card:             white;
+    --color-border:           oklch(0.92 0.015 260);
   }
 
-  /* Hide scrollbar for Firefox, IE, and Edge */
-  .scrollbar-hidden {
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
+  .theme-corporate.dark {
+    --color-primary:          oklch(35.747% 0.0797 144.624);     /* lighter for contrast */
+    --color-primary-foreground: black;
+    --color-background:       oklch(0.18 0.03 260);
+    --color-foreground:       oklch(0.95 0.03 260);
+    --color-card:             oklch(0.24 0.03 260);
+    --color-border:           oklch(0.35 0.03 260);
   }
+
+  /* ── PURPLE DREAM ── */
+  .theme-purple {
+    --color-primary:          oklch(0.68 0.25 295);
+    --color-primary-foreground: white;
+    --color-background:       oklch(0.98 0.01 280);
+    --color-foreground:       oklch(0.15 0.04 290);
+    /* ... */
+  }
+
+  .theme-purple.dark {
+    --color-primary:          oklch(0.80 0.22 295);
+    --color-primary-foreground: black;
+    --color-background:       oklch(0.14 0.03 295);
+    /* ... */
+  }
+
+  /* Add more pairs as needed (forest, ocean, etc.) */
 }

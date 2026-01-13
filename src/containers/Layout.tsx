@@ -5,13 +5,13 @@ import Sidebar from "@components/Sidebar";
 
 function Layout() {
   return (
-    <div className="duration-300 ease-out h-screen bg-lighter-gray dark:bg-gray-950">
+    <div className="duration-300 ease-out h-screen bg-lighter-gray bg-background">
       <ThemeManager />
 
       <div className="flex-1 flex flex-col h-full">
         {/* Navbar full width, above sidebar */}
         <Navbar />
-        <main className="flex bg-background text-foreground overflow-auto h-full">
+        <main className="flex text-primary-foreground overflow-auto h-full">
           <Sidebar />
           <div className="p-6">
             <Outlet />

@@ -1,36 +1,53 @@
+// ThemeManager.tsx  (now more like ThemeApplier)
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setTheme } from "../reduxStore/theme/themeSlice";
+import { setMode } from "../reduxStore/theme/themeSlice";
 import type { RootState } from "../types";
 
-function ThemeManager() {
+function ThemeApplier() {
   const dispatch = useDispatch();
-  const theme = useSelector((state: RootState) => state.theme.theme); // Updated path
+  const { pair, mode } = useSelector((state: RootState) => state.theme);
+  
 
-  // Apply 'dark' class and save to localStorage
   useEffect(() => {
-    if (theme === "dark") {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-    localStorage.setItem("theme", theme);
-  }, [theme]);
-  useEffect(() => {
-    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-    const handleChange = (e: MediaQueryListEvent) => {
-      if (!localStorage.getItem("theme")) {
-        dispatch(setTheme(e.matches ? "dark" : "light"));
-      }
-    };
+    const html = document.documentElement;
 
-    if (!localStorage.getItem("theme")) {
-      handleChange({ matches: mediaQuery.matches } as MediaQueryListEvent);
+    // 1. Clean all possible theme classes
+    html.classList.remove("dark");
+    html.classList.remove(
+      "theme-corporate",
+      "theme-purple"
+    );
+
+    // 2. Apply correct classes
+    html.classList.add(`theme-${pair}`);
+    
+
+    // if (currentTheme.includes("dark") || currentTheme === "dark") {
+    if (mode === 'dark') {
+      html.classList.add('dark');
     }
-    mediaQuery.addEventListener("change", handleChange);
-    return () => mediaQuery.removeEventListener("change", handleChange);
-  }, [dispatch]);
+  }, [pair, mode]);
+
+  // System preference listener (only when no saved preference)
+  // useEffect(() => {
+  //   const media = window.matchMedia("(prefers-color-scheme: dark)");
+
+  //   const handleChange = (e: MediaQueryListEvent) => {
+  //     if (!localStorage.getItem("theme")) {
+  //       dispatch(setMode(e.matches ? "dark" : "light"));
+  //     }
+  //   };
+
+  //   if (!localStorage.getItem("theme")) {
+  //     handleChange({ matches: media.matches } as any);
+  //   }
+
+  //   media.addEventListener("change", handleChange);
+  //   return () => media.removeEventListener("change", handleChange);
+  // }, [dispatch]);
+
   return null;
 }
 
-export default ThemeManager;
+export default ThemeApplier;
