@@ -16,7 +16,9 @@ function ThemeApplier() {
     html.classList.remove("dark");
     html.classList.remove(
       "theme-corporate",
-      "theme-purple"
+      "theme-purple",
+      "theme-blue",
+      "theme-green",
     );
 
     // 2. Apply correct classes

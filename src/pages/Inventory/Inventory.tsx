@@ -26,13 +26,17 @@ export default function Inventory() {
   ) => {
     setProducts((prev) =>
       prev.map((p) =>
-        p.id === id ? { ...p, [field]: field === "name" ? value : Number(value) } : p
+        p.id === id
+          ? { ...p, [field]: field === "name" ? value : Number(value) }
+          : p
       )
     );
   };
 
   const addProduct = () => {
-    const newId = products.length ? Math.max(...products.map(p => p.id)) + 1 : 1;
+    const newId = products.length
+      ? Math.max(...products.map((p) => p.id)) + 1
+      : 1;
     setProducts([...products, { id: newId, name: "", quantity: 0, price: 0 }]);
     setEditingId(newId);
   };
@@ -45,9 +49,9 @@ export default function Inventory() {
   return (
     <div className="space-y-4">
       <h2 className="text-xl font-semibold">Inventory</h2>
-      <table className="min-w-full border-collapse bg-white rounded-md shadow-sm">
+      <table className="min-w-full border-collapse bg-primary-foreground rounded-md shadow-sm">
         <thead>
-          <tr className="bg-gray-100 text-left text-xs font-medium text-gray-700 uppercase tracking-wider">
+          <tr className="text-left text-xs font-medium uppercase tracking-wider text-foreground">
             <th className="px-4 py-2">Product</th>
             <th className="px-4 py-2">Quantity</th>
             <th className="px-4 py-2">Price ($)</th>
@@ -63,7 +67,7 @@ export default function Inventory() {
                     type="text"
                     value={p.name}
                     onChange={(e) => handleChange(p.id, "name", e.target.value)}
-                    className="w-full border rounded px-1 py-0.5 focus:outline-none focus:ring-2 focus:ring-primary"
+                    className="w-full border rounded px-1 py-0.5 focus:outline-none focus:ring-2 focus:ring-primary text-foreground"
                   />
                 ) : (
                   p.name
@@ -74,8 +78,10 @@ export default function Inventory() {
                   <input
                     type="number"
                     value={p.quantity}
-                    onChange={(e) => handleChange(p.id, "quantity", e.target.value)}
-                    className="w-full border rounded px-1 py-0.5 focus:outline-none focus:ring-2 focus:ring-primary"
+                    onChange={(e) =>
+                      handleChange(p.id, "quantity", e.target.value)
+                    }
+                    className="w-full border rounded px-1 py-0.5 focus:outline-none focus:ring-2 focus:ring-primary text-foreground"
                   />
                 ) : (
                   p.quantity
@@ -87,22 +93,26 @@ export default function Inventory() {
                     type="number"
                     step="0.01"
                     value={p.price}
-                    onChange={(e) => handleChange(p.id, "price", e.target.value)}
-                    className="w-full border rounded px-1 py-0.5 focus:outline-none focus:ring-2 focus:ring-primary"
+                    onChange={(e) =>
+                      handleChange(p.id, "price", e.target.value)
+                    }
+                    className="w-full border rounded px-1 py-0.5 focus:outline-none focus:ring-2 focus:ring-primary text-foreground"
                   />
                 ) : (
                   p.price.toFixed(2)
                 )}
               </td>
               <td className="px-4 py-2 flex items-center gap-2">
-                {editingId === p.id ? (
-                  <button
-                    onClick={() => setEditingId(null)}
-                    className="text-green-600 hover:text-green-800"
-                  >
-                    <Pencil size={18} />
-                  </button>
-                ) : null}
+                {/* {editingId === p.id ? (
+                ) : null} */}
+                <button
+                  onClick={() => {
+                    setEditingId(editingId ? null : p.id);
+                  }}
+                  className="text-green-600 hover:text-green-800"
+                >
+                  <Pencil size={18} />
+                </button>
                 <button
                   onClick={() => deleteProduct(p.id)}
                   className="text-red-600 hover:text-red-800"

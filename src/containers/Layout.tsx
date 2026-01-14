@@ -11,9 +11,9 @@ function Layout() {
       <div className="flex-1 flex flex-col h-full">
         {/* Navbar full width, above sidebar */}
         <Navbar />
-        <main className="flex text-primary-foreground overflow-auto h-full">
+        <main className="flex text-foreground overflow-auto h-full">
           <Sidebar />
-          <div className="p-6">
+          <div className="p-6 w-full">
             <Outlet />
           </div>
         </main>

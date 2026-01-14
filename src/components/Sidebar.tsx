@@ -18,12 +18,12 @@ const navItems = [
 ];
 
 const Sidebar = () => {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     /* Hidden on small screens, flex layout from lg breakpoint */
     <aside
-      className={`hidden lg:flex bg-foreground text-primary-foreground h-full p-6 flex-col ${
+      className={`flex bg-primary-foreground h-full p-6 flex-col ${
         isOpen ? "w-64" : "w-20"
       } transition-width duration-200 ease-in-out`}
     >

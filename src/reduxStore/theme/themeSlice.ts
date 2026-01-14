@@ -1,22 +1,22 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
 // Define the ThemeState interface
-export type ThemePair = 'corporate' | 'purple' | 'forest' ; // all available pairs
+export type ThemePair = 'corporate' | 'purple' | 'green' | 'blue'; // all available pairs
 
 export interface ThemeState {
   pair: ThemePair;       // controlled by company admin (from backend/DB)
-  mode: 'light' | 'dark'; // controlled by user toggle
+  mode: 'dark' | 'light'; // controlled by user toggle
 }
 
 // Initial state with dynamic theme detection
 const getInitialPair = (): ThemePair => {
-  
+
   // Normally loaded from backend / user company setting
-  return 'corporate';
+  return 'purple';
 };
 
-const getInitialMode = (): 'light' | 'dark' => {
-  const saved = localStorage.getItem('user-theme-mode') as 'light' | 'dark' | null;
+const getInitialMode = (): 'dark' | 'light' => {
+  const saved = localStorage.getItem('user-theme-mode') as 'dark' | 'light' | null;
   if (saved) return saved;
 
   return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
@@ -39,7 +39,7 @@ const themeSlice = createSlice({
       state.mode = state.mode === 'light' ? 'dark' : 'light';
       localStorage.setItem('user-theme-mode', state.mode); // Save to localStorage
     },
-    setMode(state, action: PayloadAction<'light' | 'dark'>) {
+    setMode(state, action: PayloadAction<'dark' | 'light'>) {
       state.mode = action.payload;
       localStorage.setItem('user-theme-mode', state.mode); // Save to localStorage
     },
