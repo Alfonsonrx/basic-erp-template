@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect } from "react";
-import {createPortal} from "react-dom/client";
+import { createPortal } from 'react-dom';
 
 type ModalProps = {
   open: boolean;
