@@ -70,7 +70,51 @@ export const EmployeeDetailModal: React.FC<Props> = ({
     createdAt,
     tasks,
     deals
-  } = employee;
+  } = {
+  "name": "Jane Doe",
+  "role": "Senior Product Manager",
+  "email": "jane.doe@example.com",
+  "phone": "+1‑555‑987‑6543",
+  "revenue": 275000,
+  "status": "full-time",
+  "createdAt": "2022-04-12T09:30:00Z",
+  "tasks": [
+    {
+      "id": 101,
+      "description": "Finalize Q3 roadmap",
+      "date": "2024‑08‑01",
+      "hour": "10:00",
+      "completed": true
+    },
+    {
+      "id": 102,
+      "description": "Client demo for new feature",
+      "date": "2024‑08‑05",
+      "hour": "14:30",
+      "completed": false
+    }
+  ],
+  "deals": [
+    {
+      "id": 201,
+      "amount": 12000,
+      "status": "deal",
+      "closingDate": "2024‑09‑15",
+      "type": "Enterprise Subscription",
+      "attachments": ["contract.pdf"],
+      "completed": true
+    },
+    {
+      "id": 202,
+      "amount": 8000,
+      "status": "pending",
+      "closingDate": "2024‑10‑01",
+      "type": "Add‑on Package",
+      "attachments": [],
+      "completed": false
+    }
+  ]
+};
 
   return (
     <Modal open={open} onClose={onClose}>
