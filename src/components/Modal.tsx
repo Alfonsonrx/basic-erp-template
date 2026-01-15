@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect } from "react";
-import ReactDOM from "react-dom/client";
+import {createPortal} from "react-dom/client";
 
 type ModalProps = {
   open: boolean;
@@ -20,7 +20,16 @@ export const Modal: React.FC<ModalProps> = ({ open, onClose, children }) => {
     document.body.appendChild(modalRoot);
   }
 
-  return (
+  const el = document.createElement("div");
+
+  useEffect(() => {
+    modalRoot!.appendChild(el);
+    return () => {
+      modalRoot!.removeChild(el);
+    };
+  }, [el, modalRoot]);
+
+  const content= (
     <div>
       <div className="fixed inset-0 flex items-center justify-center z-50">
         {/* Overlay */}
@@ -43,5 +52,5 @@ export const Modal: React.FC<ModalProps> = ({ open, onClose, children }) => {
     </div>
   );
 
-  // return ReactDOM.createPortal(content, el);
+  return createPortal(content, el);
 };
