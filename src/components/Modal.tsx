@@ -20,15 +20,6 @@ export const Modal: React.FC<ModalProps> = ({ open, onClose, children }) => {
     document.body.appendChild(modalRoot);
   }
 
-  // const el = document.createElement("div");
-
-  // useEffect(() => {
-  //   modalRoot!.appendChild(el);
-  //   return () => {
-  //     modalRoot!.removeChild(el);
-  //   };
-  // }, [el, modalRoot]);
-
   return (
     <div>
       <div className="fixed inset-0 flex items-center justify-center z-50">
