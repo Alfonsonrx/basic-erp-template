@@ -2,17 +2,20 @@
 
 import { useState } from "react";
 import { Pencil, Trash2, PlusCircle, Eye } from "lucide-react";
+import { Link } from "react-router-dom";
 
 type Employee = {
   id: number;
   name: string;
   role: string;
+  email: string;
+  phone: string;
 };
 
 const dummyEmployees: Employee[] = [
-  { id: 1, name: "Alice Johnson", role: "Manager" },
-  { id: 2, name: "Bob Smith", role: "Developer" },
-  { id: 3, name: "Carol Lee", role: "Designer" }
+  { id: 1, name: "Alice Johnson", role: "Manager", email: "alice@example.com", phone: "+1-555-1234" },
+  { id: 2, name: "Bob Smith", role: "Developer", email: "bob@example.com", phone: "+1-555-5678" },
+  { id: 3, name: "Carol Lee", role: "Designer", email: "carol@example.com", phone: "+1-555-9012" }
 ];
 
 function Employees() {
@@ -44,7 +47,7 @@ function Employees() {
           onClick={() => {
             // Placeholder for add employee logic
             const newId = employees.length ? Math.max(...employees.map((e) => e.id)) + 1 : 1;
-            setEmployees([...employees, { id: newId, name: "", role: "" }]);
+            setEmployees([...employees, { id: newId, name: "", role: "", email:"", phone:"" }]);
             setEditingId(newId);
           }}
           className="inline-flex items-center gap-1 px-3 py-1 bg-primary text-foreground rounded-md hover:bg-primary/90"
@@ -58,7 +61,9 @@ function Employees() {
         {employees.map((emp) => (
           <li key={emp.id} className="flex justify-between items-center">
             <span>{emp.name}</span>
-            <span className="text-muted-foreground">{emp.role}</span>
+            <span className="hidden md:block text-muted-foreground">{emp.role}</span>
+            <span className="hidden md:block text-muted-foreground">{emp.email}</span>
+            <span className="hidden md:block text-muted-foreground">{emp.phone}</span>
 
             {/* Actions */}
             <div className="flex gap-2">
@@ -76,16 +81,15 @@ function Employees() {
               >
                 <Trash2 size={18} />
               </button>
-              <button
-                onClick={() => {
-                  // Placeholder for view details logic
-                  alert(`Viewing details for ${emp.name}`);
-                }}
-                className="inline-flex items-center gap-1 px-2 py-0.5 bg-primary text-foreground rounded-md hover:bg-primary/90"
-              >
-                <Eye size={16} />
-                Details
-              </button>
+              <Link to={`/employees/${emp.id}`}>
+                <button
+                  type="button"
+                  className="inline-flex items-center gap-1 px-2 py-0.5 bg-primary text-foreground rounded-md hover:bg-primary/90"
+                >
+                  <Eye size={16} />
+                  Details
+                </button>
+              </Link>
             </div>
           </li>
         ))}
