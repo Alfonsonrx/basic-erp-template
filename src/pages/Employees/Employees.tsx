@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Pencil, Trash2, PlusCircle, Eye } from "lucide-react";
 import { Link } from "react-router-dom";
+import { EmployeeDetailModal } from "@/components/EmployeeDetailModal";
 
 type Employee = {
   id: number;
@@ -22,6 +23,10 @@ function Employees() {
   const [employees, setEmployees] = useState<Employee[]>(dummyEmployees);
   const [editingId, setEditingId] = useState<number | null>(null);
 
+  // Modal state
+  const [selectedEmployee, setSelectedEmployee] = useState<Employee | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const handleChange = (
     id: number,
     field: keyof Omit<Employee, "id">,
@@ -37,6 +42,11 @@ function Employees() {
   const deleteEmployee = (id: number) => {
     setEmployees(employees.filter((e) => e.id !== id));
     if (editingId === id) setEditingId(null);
+  };
+
+  const openDetailModal = (emp: Employee) => {
+    setSelectedEmployee(emp);
+    setIsModalOpen(true);
   };
 
   return (
@@ -81,19 +91,28 @@ function Employees() {
               >
                 <Trash2 size={18} />
               </button>
-              <Link to={`/employees/${emp.id}`}>
-                <button
-                  type="button"
-                  className="inline-flex items-center gap-1 px-2 py-0.5 bg-primary text-foreground rounded-md hover:bg-primary/90"
-                >
-                  <Eye size={16} />
-                  Details
-                </button>
-              </Link>
+              <button
+                type="button"
+                className="inline-flex items-center gap-1 px-2 py-0.5 bg-primary text-foreground rounded-md hover:bg-primary/90"
+                onClick={() => openDetailModal(emp)}
+              >
+                <Eye size={16} />
+                Details
+              </button>
             </div>
           </li>
         ))}
       </ul>
+
+      {/* Modal */}
+      <EmployeeDetailModal
+        open={isModalOpen}
+        onClose={() => {
+          setIsModalOpen(false);
+          setSelectedEmployee(null);
+        }}
+        employee={selectedEmployee ?? undefined}
+      />
     </div>
   );
 }
