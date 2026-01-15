@@ -49,7 +49,7 @@ export const Modal: React.FC<ModalProps> = ({ open, onClose, children }) => {
           {children}
         </div>
       </div>
-    </div/>
+    </div>
   );
 
   // return ReactDOM.createPortal(content, el);
