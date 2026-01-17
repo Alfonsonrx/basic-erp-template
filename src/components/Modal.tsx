@@ -1,15 +1,24 @@
 "use client";
 
+import { X } from "lucide-react";
 import React, { useEffect } from "react";
-import { createPortal } from 'react-dom';
+import { createPortal } from "react-dom";
 
 type ModalProps = {
   open: boolean;
+  size?: string;
+  title?: string;
   onClose: () => void;
   children: React.ReactNode;
 };
 
-export const Modal: React.FC<ModalProps> = ({ open, onClose, children }) => {
+export const Modal: React.FC<ModalProps> = ({
+  open,
+  onClose,
+  title,
+  size = "3xl",
+  children,
+}) => {
   if (!open) return null;
 
   // Ensure a root element exists for the portal
@@ -29,7 +38,7 @@ export const Modal: React.FC<ModalProps> = ({ open, onClose, children }) => {
     };
   }, [el, modalRoot]);
 
-  const content= (
+  const content = (
     <div>
       <div className="fixed inset-0 flex items-center justify-center z-50">
         {/* Overlay */}
@@ -38,14 +47,20 @@ export const Modal: React.FC<ModalProps> = ({ open, onClose, children }) => {
           onClick={onClose}
         />
         {/* Modal panel */}
-        <div className="relative bg-background rounded-lg shadow-xl max-w-3xl w-full mx-4 p-6 z-10">
-          <button
-            type="button"
-            className="absolute top-2 right-2 text-gray-400 hover:text-gray-600"
-            onClick={onClose}
-          >
-            ✕
-          </button>
+        <div
+          className={` relative bg-background rounded-lg shadow-xl w-full mx-4 p-6 z-10 max-w-${size}`}
+        >
+          <div className="flex justify-between">
+            <h2 className="text-3xl font-bold text-foreground">{title}</h2>
+
+            <button
+              type="button"
+              className="top-2 right-2 text-gray-400 hover:text-gray-600"
+              onClick={onClose}
+            >
+              <X className="w-6 h-6" />
+            </button>
+          </div>
           {children}
         </div>
       </div>
