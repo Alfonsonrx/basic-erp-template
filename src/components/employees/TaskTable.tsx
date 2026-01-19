@@ -1,43 +1,29 @@
+import type { TaskItem } from "@/dummyData/projects";
 import { IconButton } from "@components/IconButton";
 import { ArrowLeft, ArrowRight, Pencil, Trash2 } from "lucide-react";
 import { Fragment, useState } from "react";
 
-export type Task = {
-  id: number;
-  description: string;
-  date: string; // ISO string
-  hour: string; // e.g., '14:00'
-  completed: boolean;
-  status: "completed" | "cancelled" | "pending";
-};
-
 type Props = {
-  initialTasks: Task[];
+  initialTasks: TaskItem[];
 };
 
 function TaskTable({ initialTasks }: Props) {
-  const [tasks, setTasks] = useState<Task[]>(initialTasks);
+  const [tasks, setTasks] = useState<TaskItem[]>(initialTasks);
   const [editingId, setEditingId] = useState<number | null>(null);
 
   const handleChange = (
     id: number,
-    field: keyof Omit<Task, "id">,
-    value: string
+    field: keyof Omit<TaskItem, "id">,
+    value: string,
   ) => {
     setTasks((prev) =>
       prev.map((t) =>
         t.id === id
           ? { ...t, [field]: typeof field === "string" ? value : Number(value) }
-          : t
-      )
+          : t,
+      ),
     );
   };
-
-  // const toggleTaskCompletion = (taskId: number) => {
-  //   setTasks((prev) =>
-  //     prev.map((t) => (t.id === taskId ? { ...t, completed: !t.completed } : t))
-  //   );
-  // };
 
   const deleteProduct = (id: number) => {
     setTasks(tasks.filter((p) => p.id !== id));
@@ -49,29 +35,23 @@ function TaskTable({ initialTasks }: Props) {
       <table className="min-w-full border-collapse rounded-md shadow-sm">
         <thead>
           <tr className="text-left text-xs font-medium uppercase tracking-wider text-foreground">
-            <th className="px-2 py-2 ">Status</th>
-            <th className="px-2 py-2">Description</th>
-            <th className="px-2 py-2">Date</th>
-            <th className="px-2 py-2">Hour</th>
+            <th className="px-2 py-2 hidden md:table-cell">Status</th>
+            <th className="px-2 py-2 ">Description</th>
+            <th className="px-2 py-2 hidden lg:table-cell">Date</th>
+            <th className="px-2 py-2 hidden lg:table-cell">Project</th>
           </tr>
         </thead>
         <tbody>
           {tasks.map((t) => (
-            <tr key={t.id} className="border-b py-0.5">
-              <td className="px-2 py-2">
+            <tr key={t.id} className="border-b py-0.5 ">
+              <td className="px-2 py-2 hidden sm:table-cell">
                 {editingId === t.id ? (
-                  // <input
-                  //   type="text"
-                  //   value={t.description}
-                  //   onChange={(e) =>
-                  //     handleChange(t.id, "description", e.target.value)
-                  //   }
-                  //   className="w-full border rounded px-1 focus:outline-none focus:ring-2 focus:ring-primary text-foreground"
-                  // />
                   <select
                     name="status"
                     value={t.status}
-                    onChange={(e) => handleChange(t.id, "status", e.target.value)}
+                    onChange={(e) =>
+                      handleChange(t.id, "status", e.target.value)
+                    }
                   >
                     <option value="completed">Completed</option>
                     <option value="cancelled">Cancelled</option>
@@ -81,21 +61,21 @@ function TaskTable({ initialTasks }: Props) {
                   t.status
                 )}
               </td>
-              <td className="px-2 py-2 w-full">
+              <td className="px-2 py-2">
                 {editingId === t.id ? (
                   <input
                     type="text"
-                    value={t.description}
+                    value={t.title}
                     onChange={(e) =>
-                      handleChange(t.id, "description", e.target.value)
+                      handleChange(t.id, "title", e.target.value)
                     }
                     className="w-full border rounded px-1 focus:outline-none focus:ring-2 focus:ring-primary text-foreground"
                   />
                 ) : (
-                  t.description
+                  <p className="truncate">{t.title}</p>
                 )}
               </td>
-              <td className="px-2 py-2">
+              <td className="px-2 py-2 hidden lg:table-cell">
                 {editingId === t.id ? (
                   <input
                     type="date"
@@ -107,22 +87,11 @@ function TaskTable({ initialTasks }: Props) {
                   t.date
                 )}
               </td>
-              <td className="px-2 py-2">
-                {editingId === t.id ? (
-                  <input
-                    type="time"
-                    value={t.hour}
-                    onChange={(e) => handleChange(t.id, "hour", e.target.value)}
-                    className="w-full border rounded px-1 focus:outline-none focus:ring-2 focus:ring-primary text-foreground"
-                  />
-                ) : (
-                  t.hour
-                )}
+              <td className="px-2 py-2 hidden lg:table-cell">
+                {t.project ? t.project.name : "None"}
               </td>
 
-              <td className="px-2 py-2 flex items-center gap-2">
-                {/* {editingId === p.id ? (
-                ) : null} */}
+              <td className="px-2 py-2 items-center gap-2 hidden sm:flex justify-end">
                 <button
                   onClick={() => {
                     setEditingId(editingId ? null : t.id);

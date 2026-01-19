@@ -23,7 +23,7 @@ const Sidebar = () => {
   return (
     /* Hidden on small screens, flex layout from lg breakpoint */
     <aside
-      className={`flex bg-primary-foreground h-full p-6 flex-col ${
+      className={`flex bg-primary-foreground p-6 flex-col ${
         isOpen ? "w-64" : "w-20"
       } transition-width duration-200 ease-in-out`}
     >

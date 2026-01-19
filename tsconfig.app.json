@@ -30,6 +30,7 @@
       "@components/*": ["components/*"],
       "@containers/*": ["containers/*"],
       "@pages/*": ["pages/*"],
+      "@data/*": ["data/*"],
       "@utils/*": ["utils/*"],
       "@reduxStore/*": ["reduxStore/*"],
       "@types": ["types"],

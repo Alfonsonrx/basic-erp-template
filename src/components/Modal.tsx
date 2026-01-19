@@ -1,5 +1,3 @@
-"use client";
-
 import { X } from "lucide-react";
 import React, { useEffect } from "react";
 import { createPortal } from "react-dom";
@@ -19,8 +17,8 @@ export const Modal: React.FC<ModalProps> = ({
   size = "3xl",
   children,
 }) => {
-  if (!open) return null;
-
+  const maxSize = `max-w-${size}`;
+  
   // Ensure a root element exists for the portal
   let modalRoot = document.getElementById("modal-root");
   if (!modalRoot) {
@@ -28,41 +26,37 @@ export const Modal: React.FC<ModalProps> = ({
     modalRoot.id = "modal-root";
     document.body.appendChild(modalRoot);
   }
-
+  
   const el = document.createElement("div");
-
+  
   useEffect(() => {
     modalRoot!.appendChild(el);
     return () => {
       modalRoot!.removeChild(el);
     };
   }, [el, modalRoot]);
-
+  if (!open) return null;
+  
   const content = (
-    <div>
-      <div className="fixed inset-0 flex items-center justify-center z-50">
-        {/* Overlay */}
-        <div
-          className="absolute inset-0 bg-black opacity-50"
-          onClick={onClose}
-        />
-        {/* Modal panel */}
-        <div
-          className={` relative bg-background rounded-lg shadow-xl w-full mx-4 p-6 z-10 max-w-${size}`}
-        >
-          <div className="flex justify-between">
-            <h2 className="text-3xl font-bold text-foreground">{title}</h2>
+    <div className="fixed inset-0 flex items-center justify-center z-50">
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-black opacity-50" onClick={onClose} />
+      {/* Modal panel */}
+      <div
+        className={`relative bg-background rounded-lg shadow-xl w-full max-h-full md:mx-4 p-6 z-10  ${maxSize}`}
+      >
+        <div className="flex justify-between">
+          <h2 className="text-3xl font-bold text-foreground">{title}</h2>
 
-            <button
-              type="button"
-              className="top-2 right-2 text-gray-400 hover:text-gray-600"
-              onClick={onClose}
-            >
-              <X className="w-6 h-6" />
-            </button>
-          </div>
-          {children}
+          <button
+            type="button"
+            className="top-2 right-2 text-gray-400 hover:text-gray-600"
+            onClick={onClose}
+          >
+            <X className="w-6 h-6" />
+          </button>
         </div>
+        {children}
       </div>
     </div>
   );

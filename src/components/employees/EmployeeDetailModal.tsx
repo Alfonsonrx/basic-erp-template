@@ -1,19 +1,9 @@
-"use client";
 
 import { PlusCircle } from "lucide-react";
 import { Modal } from "../Modal";
-import type { Task } from "./TaskTable";
 import TaskTable from "./TaskTable";
-import ProjectsTable from "./ProjectsTable";
-
-type Project = {
-  id: number;
-  name: string;
-  startDate: string; // ISO string
-  deadline: string; // ISO string
-  status: "completed" | "cancelled" | "pending";
-  type: string;
-};
+import type { Project, TaskItem } from "@/dummyData/projects";
+import ProjectsGrid from "./ProjectsGrid";
 
 export interface EmployeeDetailProps {
   name: string;
@@ -23,7 +13,7 @@ export interface EmployeeDetailProps {
   revenue: number;
   status: "new" | "job as call" | "part-time" | "full-time" | "fired";
   createdAt: string; // ISO
-  tasks: Task[];
+  tasks: TaskItem[];
   projects: Project[];
 }
 
@@ -63,44 +53,43 @@ export const EmployeeDetailModal: React.FC<Props> = ({
     tasks: [
       {
         id: 101,
-        description: "Finalize Q3 roadmap",
+        title: "Finalize Q3 roadmap",
         date: "2024‑08‑01",
         hour: "10:00",
-        status: "completed",
-        completed: true,
+        status: "todo",
       },
       {
         id: 102,
-        description: "Client demo for new feature",
+        project: { id: 1, name: "Website Redesign" },
+        title: "Client demo for new feature",
         date: "2024‑08‑05",
         hour: "14:30",
-        status: "completed",
-        completed: false,
+        status: "done",
       },
 
       {
         id: 103,
-        description: "Finalize Q3 roadmap",
+        project: { id: 2, name: "Mobile App Launch" },
+        title: "Finalize Q3 roadmap",
         date: "2024‑08‑01",
         hour: "10:00",
-        status: "completed",
-        completed: true,
+        status: "todo",
       },
       {
         id: 104,
-        description: "Client demo for new feature",
+        project: { id: 1, name: "Website Redesign" },
+        title: "Client demo for new feature",
         date: "2024‑08‑05",
         hour: "14:30",
-        status: "completed",
-        completed: false,
+        status: "done",
       },
       {
         id: 105,
-        description: "Client demo for new feature",
+        project: { id: 2, name: "Mobile App Launch" },
+        title: "Client demo for new feature",
         date: "2024‑08‑05",
         hour: "14:30",
-        status: "completed",
-        completed: false,
+        status: "inprogress",
       },
     ],
     projects: [
@@ -149,12 +138,12 @@ export const EmployeeDetailModal: React.FC<Props> = ({
 
   return (
     <Modal open={open} onClose={onClose} size="5xl" title="Detalles">
-      <div className="text-foreground mt-6">
+      <div className="text-foreground mt-2 md:my-6 max-h-128 md:max-h-full overflow-scroll">
         {/* Info content */}
-        <div className="flex gap-2">
-          <div className="flex flex-col gap-2 ">
+        <div className="flex flex-col md:flex-row gap-2 ">
+          <div className="flex md:flex-col gap-2 ">
             {/* Header */}
-            <div className="bg-card p-4">
+            <div className="bg-card p-4 grow nd:shrink">
               <h2 className="text-3xl font-bold">{name}</h2>
               <p className=" mt-1">{role}</p>
               <p className="text-sm  mt-1">
@@ -162,7 +151,7 @@ export const EmployeeDetailModal: React.FC<Props> = ({
               </p>
             </div>
             {/* About section */}
-            <section className="bg-card p-4 grow">
+            <section className="bg-card p-4 grow hidden md:block">
               <h3 className="text-xl font-semibold mb-4">About</h3>
               <ul className="space-y-2 text-sm ">
                 <li>
@@ -185,7 +174,7 @@ export const EmployeeDetailModal: React.FC<Props> = ({
           <div className="flex flex-col gap-2 w-full">
             {/* Tasks section */}
             <section className="p-6 grow bg-card">
-              <div className="flex items-center justify-between mb-2">
+              <div className="hidden md:flex items-center justify-between mb-2">
                 <h3 className="text-xl font-semibold">Tasks</h3>
                 <button
                   type="button"
@@ -203,17 +192,26 @@ export const EmployeeDetailModal: React.FC<Props> = ({
               )}
             </section>
             {/* Deals section */}
-            <section className="p-4 grow bg-card">
+            <section className="p-4 bg-card">
               <h3 className="text-xl font-semibold">Projects</h3>
 
               {projects.length === 0 ? (
                 <p className="text-sm ">No deals recorded.</p>
               ) : (
-                <ProjectsTable initialProjects={projects} />
+                <ProjectsGrid initialProjects={projects} />
               )}
             </section>
           </div>
         </div>
+      </div>
+      <div className="flex justify-center mt-4">
+        <button
+          type="button"
+          className="inline-flex items-center gap-1 px-3 py-1 bg-primary text-foreground rounded-md hover:bg-primary/70"
+        >
+          <PlusCircle size={16} />
+          See details
+        </button>
       </div>
     </Modal>
   );

@@ -8,12 +8,12 @@ function Layout() {
     <div className="duration-300 ease-out h-screen bg-lighter-gray bg-background">
       <ThemeManager />
 
-      <div className="flex-1 flex flex-col h-full">
+      <div className="flex-1 flex flex-col h-screen">
         {/* Navbar full width, above sidebar */}
         <Navbar />
-        <main className="flex text-foreground overflow-auto h-full">
+        <main className="flex text-foreground overflow-hidden h-full">
           <Sidebar />
-          <div className="p-6 w-full">
+          <div className="p-6 w-full overflow-auto">
             <Outlet />
           </div>
         </main>
