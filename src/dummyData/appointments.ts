@@ -1,10 +1,6 @@
-export interface Appointment {
-    id: number;
-    title: string;
-    time: string; // e.g., 'T09:00:00Z'
-}
+import type { basicSchedule } from "@types";
 
-export const appointments = {
+export const appointments: basicSchedule = {
     today: [
         { id: 1, title: "Team Standup", time: `09:00` },
         { id: 2, title: "Client Call", time: `14:30` },

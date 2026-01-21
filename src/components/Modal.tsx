@@ -4,7 +4,6 @@ import { createPortal } from "react-dom";
 
 type ModalProps = {
   open: boolean;
-  size?: string;
   title?: string;
   onClose: () => void;
   children: React.ReactNode;
@@ -14,10 +13,8 @@ export const Modal: React.FC<ModalProps> = ({
   open,
   onClose,
   title,
-  size = "3xl",
   children,
 }) => {
-  const maxSize = `max-w-${size}`;
   
   // Ensure a root element exists for the portal
   let modalRoot = document.getElementById("modal-root");
@@ -43,7 +40,7 @@ export const Modal: React.FC<ModalProps> = ({
       <div className="absolute inset-0 bg-black opacity-50" onClick={onClose} />
       {/* Modal panel */}
       <div
-        className={`relative bg-background rounded-lg shadow-xl w-full max-h-full md:mx-4 p-6 z-10  ${maxSize}`}
+        className={`relative bg-background rounded-lg shadow-xl w-full max-h-full md:mx-4 p-6 z-10 max-w-5xl`}
       >
         <div className="flex justify-between">
           <h2 className="text-3xl font-bold text-foreground">{title}</h2>

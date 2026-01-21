@@ -1,5 +1,5 @@
-import type { Project } from "@/dummyData/projects";
 import { Card } from "@components/Card";
+import type { Project } from "@types";
 
 type Props = {
   initialProjects: Project[];

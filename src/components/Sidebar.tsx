@@ -1,5 +1,3 @@
-"use client";
-
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import {
@@ -13,8 +11,8 @@ import {
 
 const navItems = [
   { to: "/", icon: <Home className="h-6 w-6" />, label: "Home" },
-  { to: "/employees", icon: <Users className="h-6 w-6" />, label: "Employees" },
-  { to: "/clients", icon: <FileText className="h-6 w-6" />, label: "Clients" },
+  { to: "/team", icon: <Users className="h-6 w-6" />, label: "Team" },
+  { to: "/customers", icon: <FileText className="h-6 w-6" />, label: "Customers" },
 ];
 
 const Sidebar = () => {

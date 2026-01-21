@@ -1,8 +1,4 @@
-"use client";
-
-import React from "react";
 import { Card } from "@/components/Card";
-
 import { tasks, projects } from "@/dummyData/projects";
 import { appointments } from "@/dummyData/appointments";
 
@@ -10,7 +6,6 @@ function Home() {
   const today = new Date().toISOString().split("T")[0];
   const tomorrowDate = new Date();
   tomorrowDate.setDate(tomorrowDate.getDate() + 1);
-  const tomorrow = tomorrowDate.toISOString().split("T")[0];
 
   const tasksToday = tasks.filter((t) => t.date.startsWith(today));
   // For the demo we don't need tomorrow tasks separately

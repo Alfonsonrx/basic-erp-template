@@ -3,6 +3,7 @@
 import React from "react";
 
 export const SecondaryButton: React.FC<{
+  children: React.ReactNode;
   onClick?: () => void;
   disabled?: boolean;
   className?: string;

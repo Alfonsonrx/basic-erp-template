@@ -1,5 +1,5 @@
-import type { TaskItem } from "@/dummyData/projects";
 import { IconButton } from "@components/IconButton";
+import type { TaskItem } from "@types";
 import { ArrowLeft, ArrowRight, Pencil, Trash2 } from "lucide-react";
 import { Fragment, useState } from "react";
 

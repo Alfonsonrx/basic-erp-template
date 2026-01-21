@@ -1,83 +1,53 @@
-"use client";
-
 import { useState } from "react";
-import { Trash2, PlusCircle, Eye } from "lucide-react";
-import { EmployeeDetailModal } from "@components/employees/EmployeeDetailModal";
+import { PlusCircle, Eye } from "lucide-react";
+import { TeammateDetailModal } from "@components/team/TeammateDetailModal";
+import type { TeammateItem } from "@types";
+import { dummyTeammates } from "@/dummyData/projects";
 
-type Employee = {
-  id: number;
-  name: string;
-  role: string;
-  email: string;
-  phone: string;
-};
 
-const dummyEmployees: Employee[] = [
-  {
-    id: 1,
-    name: "Alice Johnson",
-    role: "Manager",
-    email: "alice@example.com",
-    phone: "+1-555-1234",
-  },
-  {
-    id: 2,
-    name: "Bob Smith",
-    role: "Developer",
-    email: "bob@example.com",
-    phone: "+1-555-5678",
-  },
-  {
-    id: 3,
-    name: "Carol Lee",
-    role: "Designer",
-    email: "carol@example.com",
-    phone: "+1-555-9012",
-  },
-];
 
-function Employees() {
-  const [employees, setEmployees] = useState<Employee[]>(dummyEmployees);
+function Team() {
+  const [teammates, setTeammates] = useState<TeammateItem[]>(dummyTeammates);
   const [editingId, setEditingId] = useState<number | null>(null);
 
   // Modal state
-  const [selectedEmployeeId, setSelectedEmployeeId] = useState<number | null>(
+  const [selectedTeammateId, setSelectedTeammateId] = useState<number | null>(
     null
   );
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleChange = (
-    id: number,
-    field: keyof Omit<Employee, "id">,
-    value: string
-  ) => {
-    setEmployees((prev) =>
-      prev.map((e) => (e.id === id ? { ...e, [field]: value } : e))
-    );
-  };
+  // const handleChange = (
+  //   id: number,
+  //   field: keyof Omit<TeammateItem, "id">,
+  //   value: string
+  // ) => {
+  //   setTeammates((prev) =>
+  //     prev.map((e) => (e.id === id ? { ...e, [field]: value } : e))
+  //   );
+  // };
 
-  const deleteEmployee = (id: number) => {
-    setEmployees(employees.filter((e) => e.id !== id));
-    if (editingId === id) setEditingId(null);
-  };
+  // const deleteEmployee = (id: number) => {
+  //   setTeammates(teammates.filter((e) => e.id !== id));
+  //   if (editingId === id) setEditingId(null);
+  // };
 
   const openDetailModal = (empId: number) => {
-    setSelectedEmployeeId(empId);
+    setSelectedTeammateId(empId);
     setIsModalOpen(true);
   };
 
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between mb-2">
-        <h2 className="text-xl font-semibold">Employees</h2>
+        <h2 className="text-xl font-semibold">Team</h2>
         <button
           onClick={() => {
             // Placeholder for add employee logic
-            const newId = employees.length
-              ? Math.max(...employees.map((e) => e.id)) + 1
+            const newId = teammates.length
+              ? Math.max(...teammates.map((t) => t.id)) + 1
               : 1;
-            setEmployees([
-              ...employees,
+            setTeammates([
+              ...teammates,
               { id: newId, name: "", role: "", email: "", phone: "" },
             ]);
             setEditingId(newId);
@@ -85,12 +55,12 @@ function Employees() {
           className="inline-flex items-center gap-1 px-3 py-1 bg-primary text-foreground rounded-md hover:bg-primary/90"
         >
           <PlusCircle size={16} />
-          Add Employee
+          Add Teammate
         </button>
       </div>
 
       <ul className="border rounded-md p-4 space-y-2 bg-background text-foreground">
-        {employees.map((emp) => (
+        {teammates.map((emp) => (
           <li key={emp.id} className="flex justify-between items-center">
             <span>{emp.name}</span>
             <span className="hidden md:block text-foreground">
@@ -105,12 +75,12 @@ function Employees() {
 
             {/* Actions */}
             <div className="flex gap-2">
-              <button
+              {/* <button
                 onClick={() => deleteEmployee(emp.id)}
                 className="text-red-600 hover:text-red-800"
               >
                 <Trash2 size={18} />
-              </button>
+              </button> */}
               <button
                 type="button"
                 className="inline-flex items-center gap-1 px-2 py-0.5 bg-primary text-foreground rounded-md hover:bg-primary/90"
@@ -125,16 +95,16 @@ function Employees() {
       </ul>
 
       {/* Modal */}
-      <EmployeeDetailModal
+      <TeammateDetailModal
         open={isModalOpen}
         onClose={() => {
           setIsModalOpen(false);
-          setSelectedEmployeeId(null);
+          setSelectedTeammateId(null);
         }}
-        employee={selectedEmployeeId ?? undefined}
+        teammate={selectedTeammateId ?? undefined}
       />
     </div>
   );
 }
 
-export default Employees;
+export default Team;

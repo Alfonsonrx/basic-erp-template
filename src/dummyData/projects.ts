@@ -1,3 +1,4 @@
+import type { Teammate, Project, TaskItem, TeammateItem } from "@types";
 
 export const projects: Project[] = [
   {
@@ -33,31 +34,6 @@ export const projects: Project[] = [
     type: "App"
   }
 ];
-interface ProjectItem {
-  id: number;
-  name: string;
-}
-
-export interface Project extends ProjectItem {
-  startDate: string; // ISO
-  deadline: string; // ISO
-  status: "completed" | "cancelled" | "pending";
-  type: string;
-}
-
-export interface TaskItem {
-  id: number;
-  project?: ProjectItem | null;
-  title: string;
-  status: "todo" | "inprogress" | "done";
-  date: string; // ISO
-  hour?: string | null
-}
-
-export interface Employee {
-  id: number;
-  name: string;
-}
 
 export const tasks: TaskItem[] = [
   {
@@ -102,7 +78,31 @@ export const tasks: TaskItem[] = [
   }
 ];
 
-export const employees: Employee[] = [
+export const dummyTeammates: TeammateItem[] = [
+  {
+    id: 1,
+    name: "Alice Johnson",
+    role: "Manager",
+    email: "alice@example.com",
+    phone: "+1-555-1234",
+  },
+  {
+    id: 2,
+    name: "Bob Smith",
+    role: "Developer",
+    email: "bob@example.com",
+    phone: "+1-555-5678",
+  },
+  {
+    id: 3,
+    name: "Carol Lee",
+    role: "Designer",
+    email: "carol@example.com",
+    phone: "+1-555-9012",
+  },
+];
+
+export const employees: Teammate[] = [
   { id: 1, name: "Alice Johnson" },
   { id: 2, name: "Bob Smith" },
   { id: 3, name: "Carol Lee" }

@@ -2,10 +2,11 @@
 import { PlusCircle } from "lucide-react";
 import { Modal } from "../Modal";
 import TaskTable from "./TaskTable";
-import type { Project, TaskItem } from "@/dummyData/projects";
+import type { Project, TaskItem } from "@types";
 import ProjectsGrid from "./ProjectsGrid";
+import { Link } from "react-router-dom";
 
-export interface EmployeeDetailProps {
+export interface TeammateDetailProps {
   name: string;
   role: string;
   email: string;
@@ -20,16 +21,16 @@ export interface EmployeeDetailProps {
 type Props = {
   open: boolean;
   onClose: () => void;
-  employee?: number | null;
+  teammate?: number | null;
 };
 
-export const EmployeeDetailModal: React.FC<Props> = ({
+export const TeammateDetailModal: React.FC<Props> = ({
   open,
   onClose,
-  employee,
+  teammate,
 }) => {
-  // If no employee data, just show an empty modal (or nothing)
-  if (!employee)
+  // If no teammate data, just show an empty modal (or nothing)
+  if (!teammate)
     return <Modal open={open} onClose={onClose} children={<></>} />;
 
   const {
@@ -42,7 +43,7 @@ export const EmployeeDetailModal: React.FC<Props> = ({
     createdAt,
     tasks,
     projects,
-  }: EmployeeDetailProps = {
+  }: TeammateDetailProps = {
     name: "Jane Doe",
     role: "Senior Product Manager",
     email: "jane.doe@example.com",
@@ -137,7 +138,7 @@ export const EmployeeDetailModal: React.FC<Props> = ({
   };
 
   return (
-    <Modal open={open} onClose={onClose} size="5xl" title="Detalles">
+    <Modal open={open} onClose={onClose} title="Detalles">
       <div className="text-foreground mt-2 md:my-6 max-h-128 md:max-h-full overflow-scroll">
         {/* Info content */}
         <div className="flex flex-col md:flex-row gap-2 ">
@@ -205,6 +206,7 @@ export const EmployeeDetailModal: React.FC<Props> = ({
         </div>
       </div>
       <div className="flex justify-center mt-4">
+        <Link to={`/employees/${teammate}`}>
         <button
           type="button"
           className="inline-flex items-center gap-1 px-3 py-1 bg-primary text-foreground rounded-md hover:bg-primary/70"
@@ -212,6 +214,7 @@ export const EmployeeDetailModal: React.FC<Props> = ({
           <PlusCircle size={16} />
           See details
         </button>
+        </Link>
       </div>
     </Modal>
   );

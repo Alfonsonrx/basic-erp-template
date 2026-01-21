@@ -1,10 +1,10 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "./containers/Layout";
 import { Home } from "@/pages/Home";
-import { Employees } from "@pages/Employees";
-import { Clients } from "@pages/Clients";
 import { Inventory } from "@pages/Inventory";
-import EmployeeDetail from "./pages/Employees/EmployeeDetail";
+import { Customers } from "@pages/Customers";
+import Team from "@pages/Team/Team";
+import TeammateDetail from "@pages/Team/TeammateDetail";
 
 function App() {
   return (
@@ -12,9 +12,9 @@ function App() {
       <Routes>
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
-          <Route path="/employees" element={<Employees />} />
-          <Route path="/employees/:id" element={<EmployeeDetail />} />
-          <Route path="/clients" element={<Clients />} />
+          <Route path="/team" element={<Team />} />
+          <Route path="/team/:id" element={<TeammateDetail />} />
+          <Route path="/customers" element={<Customers />} />
           <Route path="/inventory" element={<Inventory />} />
         </Route>
       </Routes>
