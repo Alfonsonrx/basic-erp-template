@@ -1,8 +1,8 @@
 // ThemeManager.tsx  (now more like ThemeApplier)
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setMode } from "../reduxStore/theme/themeSlice";
-import type { RootState } from "../types";
+import { setMode } from "@/reduxStore/theme/themeSlice";
+import type { RootState } from "@types";
 
 function ThemeApplier() {
   const dispatch = useDispatch();
@@ -25,7 +25,6 @@ function ThemeApplier() {
     html.classList.add(`theme-${pair}`);
     
 
-    // if (currentTheme.includes("dark") || currentTheme === "dark") {
     if (mode === 'dark') {
       html.classList.add('dark');
     }

@@ -1,18 +1,14 @@
-import { Outlet } from "react-router-dom";
 import ThemeApplier from "@components/layout/ThemeApplier";
-import Navbar from "@components/layout/Navbar";
-import Sidebar from "@components/layout/Sidebar";
+import { Outlet } from "react-router-dom";
 
-function Layout() {
+function AuthLayout() {
   return (
     <div className="duration-300 ease-out h-screen bg-lighter-gray bg-background">
       <ThemeApplier />
 
       <div className="flex-1 flex flex-col h-screen">
         {/* Navbar full width, above sidebar */}
-        <Navbar />
         <main className="flex text-foreground overflow-hidden h-full">
-          <Sidebar />
           <div className="w-full overflow-auto">
             <Outlet />
           </div>
@@ -22,4 +18,4 @@ function Layout() {
   );
 }
 
-export default Layout;
+export default AuthLayout;

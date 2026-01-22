@@ -7,9 +7,10 @@ export const PrimaryButton: React.FC<{
   onClick?: () => void;
   disabled?: boolean;
   className?: string;
-}> = ({ children, onClick, disabled, className }) => (
+  type?: "button" | "submit" | "reset" | undefined;
+}> = ({ children, onClick, disabled, className, type = "button" }) => (
   <button
-    type="button"
+    type={type}
     onClick={onClick}
     disabled={disabled}
     className={`inline-flex items-center gap-1 px-2 py-1 rounded-md ${

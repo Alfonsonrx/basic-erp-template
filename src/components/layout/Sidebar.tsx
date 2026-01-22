@@ -7,9 +7,10 @@ import {
   PlusCircle,
   ChevronsLeft,
   ChevronsRight,
+  NotebookText,
 } from "lucide-react";
-import { PrimaryButton } from "./Buttons/PrimaryButton";
-import { LinkButton } from "./Buttons/LinkButton";
+import { PrimaryButton } from "@components/Buttons/PrimaryButton";
+import { LinkButton } from "@components/Buttons/LinkButton";
 
 const navItems = [
   { to: "/", icon: <Home className="mx-2 h-6 w-6" />, label: "Home" },
@@ -19,6 +20,11 @@ const navItems = [
     icon: <FileText className="mx-2 h-6 w-6" />,
     label: "Customers",
   },
+  {
+    to: "/projects",
+    icon: <NotebookText className="mx-2 h-6 w-6" />,
+    label: "Projects",
+  },
 ];
 
 const Sidebar = () => {
@@ -27,8 +33,8 @@ const Sidebar = () => {
   return (
     /* Hidden on small screens, flex layout from lg breakpoint */
     <aside
-      className={`flex bg-primary-foreground p-6 flex-col ${
-        isOpen ? "w-64" : "w-24"
+      className={`flex bg-primary-foreground p-4 flex-col ${
+        isOpen ? "w-64" : "w-20"
       } transition-width duration-200 ease-in-out`}
     >
       {/* Toggle button – always visible */}

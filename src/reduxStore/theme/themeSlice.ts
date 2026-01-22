@@ -12,7 +12,7 @@ export interface ThemeState {
 const getInitialPair = (): ThemePair => {
 
   // Normally loaded from backend / user company setting
-  return 'purple';
+  return 'corporate';
 };
 
 const getInitialMode = (): 'dark' | 'light' => {

@@ -4,7 +4,7 @@ export interface AuthState {
   access: string | null;
   refresh: string | null;
   isAuthenticated: boolean | null;
-  user: { id: string; name: string } | null;
+  user: { id: string; name: string; role?: `admin`|`manager`|`employee` } | null;
   error: string | null;
 }
 
@@ -33,7 +33,7 @@ const authSlice = createSlice({
     signupSuccess(state) {
       state.isAuthenticated = false;
     },
-    userLoadedSuccess(state, action: PayloadAction<{ id: string, name: string }>) {
+    userLoadedSuccess(state, action: PayloadAction<{ id: string; name: string; role?: `admin`|`manager`|`employee` }>) {
       state.user = action.payload
     },
     authenticatedFail(state) {

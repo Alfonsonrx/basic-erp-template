@@ -1,9 +1,9 @@
 import { Moon, Sun, User } from "lucide-react";
-import { IconButton } from "./Buttons/IconButton";
 import type { AppDispatch } from "@/store";
 import { useDispatch, useSelector } from "react-redux";
 import { setThemePair, toggleTheme } from "@reduxStore/theme/themeSlice";
 import type { RootState } from "@types";
+import { IconButton } from "@components/Buttons/IconButton";
 
 type Props = {};
 

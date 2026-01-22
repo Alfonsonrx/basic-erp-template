@@ -10,7 +10,7 @@
   --color-background:       oklch(98% 0.01 200);
   --color-foreground:       oklch(20% 0.04 240);
   --color-muted:            oklch(55% 0.03 240);
-  --color-card:             white;
+  --color-card:             oklch(0.98 0.01 280);
   --color-border:           oklch(90% 0.02 240);
   --color-muted-foreground: oklch(45% 0.04 240);
 }
@@ -23,7 +23,7 @@
     --color-primary-foreground: white;
     --color-background:       oklch(0.98 0.015 200);
     --color-foreground:       oklch(0.18 0.04 260);
-    --color-card:             white;
+    --color-card:             oklch(0.98 0.01 280);
     --color-border:           oklch(0.92 0.015 260);
   }
 
@@ -42,9 +42,8 @@
     --color-primary-foreground: white;
     --color-background:       oklch(0.98 0.01 280);
     --color-foreground:       oklch(0.15 0.04 290);
-    --color-card:             white;
+    --color-card:             oklch(0.98 0.01 280);
     --color-border:           oklch(0.92 0.015 260);
-    /* ... */
   }
 
   .theme-purple.dark {
@@ -54,7 +53,6 @@
     --color-foreground:       oklch(0.98 0.01 280);
     --color-card:             oklch(0.24 0.03 260);
     --color-border:           oklch(0.35 0.03 260);
-    /* ... */
   }
 
   /* ── GREEN HORIZON ── */
@@ -63,7 +61,7 @@
     --color-primary-foreground: white;
     --color-background:       oklch(0.97 0.02 150);
     --color-foreground:       oklch(0.15 0.04 130);
-    --color-card:             white;
+    --color-card:             oklch(0.98 0.01 280);
     --color-border:           oklch(0.90 0.02 140);
   }
 
@@ -82,7 +80,7 @@
     --color-primary-foreground: white;
     --color-background:       oklch(0.96 0.02 260);
     --color-foreground:       oklch(0.15 0.04 250);
-    --color-card:             white;
+    --color-card:             oklch(0.98 0.01 280);
     --color-border:           oklch(0.90 0.02 255);
   }
 
