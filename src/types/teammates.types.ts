@@ -8,15 +8,10 @@ export interface Teammate {
 export interface TeammateItem extends Teammate {
   role: string
   email: string
-  phone: string
+  phone?: string
 }
 
 export interface TeammateDetailData extends TeammateItem {
-  id: number;
-  name: string;
-  role: string;
-  email: string;
-  phone: string;
   revenue: number;
   status:
     | "new"

@@ -1,4 +1,4 @@
-import { IconButton } from "@components/IconButton";
+import { IconButton } from "@components/Buttons/IconButton";
 import type { TaskItem } from "@types";
 import { ArrowLeft, ArrowRight, Pencil, Trash2 } from "lucide-react";
 import { Fragment, useState } from "react";

@@ -49,7 +49,6 @@ const dummyTeammatesDetail: TeammateDetailData[] = [
       },
     ],
   },
-  // Additional Teammates can be added here
 ];
 
 export default function TeammateDetail() {

@@ -1,5 +1,5 @@
 import { Moon, Sun, User } from "lucide-react";
-import { IconButton } from "./IconButton";
+import { IconButton } from "./Buttons/IconButton";
 import type { AppDispatch } from "@/store";
 import { useDispatch, useSelector } from "react-redux";
 import { setThemePair, toggleTheme } from "@reduxStore/theme/themeSlice";

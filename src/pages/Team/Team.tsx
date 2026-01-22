@@ -1,35 +1,22 @@
 import { useState } from "react";
-import { PlusCircle, Eye } from "lucide-react";
+import { PlusCircle, Eye, PaperclipIcon, ArrowLeft, ArrowRight } from "lucide-react";
 import { TeammateDetailModal } from "@components/team/TeammateDetailModal";
 import type { TeammateItem } from "@types";
 import { dummyTeammates } from "@/dummyData/projects";
-
-
+import { PrimaryButton } from "@components/Buttons/PrimaryButton";
+import { SecondaryButton } from "@components/Buttons/SecondaryButton";
+import { IconButton } from "@components/Buttons/IconButton";
 
 function Team() {
+  const [search, setSearch] = useState("");
   const [teammates, setTeammates] = useState<TeammateItem[]>(dummyTeammates);
   const [editingId, setEditingId] = useState<number | null>(null);
 
   // Modal state
   const [selectedTeammateId, setSelectedTeammateId] = useState<number | null>(
-    null
+    null,
   );
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  // const handleChange = (
-  //   id: number,
-  //   field: keyof Omit<TeammateItem, "id">,
-  //   value: string
-  // ) => {
-  //   setTeammates((prev) =>
-  //     prev.map((e) => (e.id === id ? { ...e, [field]: value } : e))
-  //   );
-  // };
-
-  // const deleteEmployee = (id: number) => {
-  //   setTeammates(teammates.filter((e) => e.id !== id));
-  //   if (editingId === id) setEditingId(null);
-  // };
 
   const openDetailModal = (empId: number) => {
     setSelectedTeammateId(empId);
@@ -38,61 +25,87 @@ function Team() {
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between mb-2">
-        <h2 className="text-xl font-semibold">Team</h2>
-        <button
-          onClick={() => {
-            // Placeholder for add employee logic
-            const newId = teammates.length
-              ? Math.max(...teammates.map((t) => t.id)) + 1
-              : 1;
-            setTeammates([
-              ...teammates,
-              { id: newId, name: "", role: "", email: "", phone: "" },
-            ]);
-            setEditingId(newId);
-          }}
-          className="inline-flex items-center gap-1 px-3 py-1 bg-primary text-foreground rounded-md hover:bg-primary/90"
-        >
-          <PlusCircle size={16} />
-          Add Teammate
-        </button>
+      <div className="items-center justify-between my-4 mx-6">
+        <h2 className="text-3xl font-semibold mb-2">Team</h2>
+        <div className="flex gap-2 flex-wrap">
+          <form className="grow">
+            <input
+              type="text"
+              placeholder="Search teammate…"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="w-full h-full rounded-md border px-3 py-1 focus:outline-none focus:ring-2 focus:ring-primary text-foreground bg-background"
+            />
+          </form>
+          <div className="flex justify-center gap-2 flex-wrap">
+            <SecondaryButton>
+              <PaperclipIcon size={16} />
+              Export
+            </SecondaryButton>
+            <PrimaryButton
+              onClick={() => {
+                // Placeholder for add employee logic
+                const newId = teammates.length
+                  ? Math.max(...teammates.map((t) => t.id)) + 1
+                  : 1;
+                setTeammates([
+                  ...teammates,
+                  { id: newId, name: "", role: "", email: "", phone: "" },
+                ]);
+                setEditingId(newId);
+              }}
+            >
+              <PlusCircle size={16} />
+              Add Teammate
+            </PrimaryButton>
+          </div>
+        </div>
       </div>
 
-      <ul className="border rounded-md p-4 space-y-2 bg-background text-foreground">
-        {teammates.map((emp) => (
-          <li key={emp.id} className="flex justify-between items-center">
-            <span>{emp.name}</span>
-            <span className="hidden md:block text-foreground">
-              {emp.role}
-            </span>
-            <span className="hidden md:block text-foreground">
-              {emp.email}
-            </span>
-            <span className="hidden md:block text-foreground">
-              {emp.phone}
-            </span>
+      {/* Table */}
+      <div className="bg-card max-h-96 overflow-auto border-y border-border ">
+        <table className="min-w-full divide-y divide-border border-b">
+          <thead>
+            <tr className="text-center text-xs font-medium uppercase tracking-wider">
+              <th className="px-4 py-2 ">Name</th>
+              <th className="px-4 py-2 hidden md:table-cell">Email</th>
+              <th className="px-4 py-2 hidden md:table-cell">Phone</th>
+              <th className="px-4 py-2 hidden md:table-cell">Role</th>
+              <th className="px-4 py-2">Actions</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-border">
+            {teammates.map((teammate) => (
+              <tr
+                key={teammate.id}
+                className="text-center hover:bg-background/10 transition-colors"
+              >
+                <td>{teammate.name}</td>
+                <td className=" hidden md:table-cell">
+                  {teammate.email}
+                </td>
+                <td className=" hidden md:table-cell">
+                  {teammate.phone ? teammate.phone : "None"}
+                </td>
+                <td className=" hidden md:table-cell">
+                  {teammate.role}
+                </td>
+                <td className="flex gap-2 justify-center my-2">
+                  <PrimaryButton onClick={() => openDetailModal(teammate.id)}>
+                    <Eye size={16} />
+                    Details
+                  </PrimaryButton>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
 
-            {/* Actions */}
-            <div className="flex gap-2">
-              {/* <button
-                onClick={() => deleteEmployee(emp.id)}
-                className="text-red-600 hover:text-red-800"
-              >
-                <Trash2 size={18} />
-              </button> */}
-              <button
-                type="button"
-                className="inline-flex items-center gap-1 px-2 py-0.5 bg-primary text-foreground rounded-md hover:bg-primary/90"
-                onClick={() => openDetailModal(emp.id)}
-              >
-                <Eye size={16} />
-                Details
-              </button>
-            </div>
-          </li>
-        ))}
-      </ul>
+        <div className="mt-2 flex justify-end my-2 mx-6 gap-1">
+          <IconButton className="bg-primary/50" icon={ArrowLeft} />
+          <IconButton className="bg-primary/50" icon={ArrowRight} />
+        </div>
+      </div>
 
       {/* Modal */}
       <TeammateDetailModal

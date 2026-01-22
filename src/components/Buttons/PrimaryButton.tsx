@@ -2,7 +2,7 @@
 
 import React from "react";
 
-export const SecondaryButton: React.FC<{
+export const PrimaryButton: React.FC<{
   children: React.ReactNode;
   onClick?: () => void;
   disabled?: boolean;
@@ -12,10 +12,10 @@ export const SecondaryButton: React.FC<{
     type="button"
     onClick={onClick}
     disabled={disabled}
-    className={`inline-flex items-center justify-center rounded-md px-4 py-2 font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 ${
+    className={`inline-flex items-center gap-1 px-2 py-1 rounded-md ${
       disabled
-        ? "bg-gray-300 text-gray-600 cursor-not-allowed"
-        : "bg-[#FAFAFA] text-[#282D32] hover:bg-gray-200"
+        ? "bg-muted text-primary-foreground hover:bg-bg-muted-foreground cursor-not-allowed"
+        : "bg-primary text-foreground hover:bg-primary/90"
     } ${className}`}
   >
     {children}

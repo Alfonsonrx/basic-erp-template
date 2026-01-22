@@ -13,7 +13,7 @@ function Layout() {
         <Navbar />
         <main className="flex text-foreground overflow-hidden h-full">
           <Sidebar />
-          <div className="p-6 w-full overflow-auto">
+          <div className="w-full overflow-auto">
             <Outlet />
           </div>
         </main>

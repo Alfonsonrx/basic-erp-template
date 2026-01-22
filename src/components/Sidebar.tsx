@@ -8,11 +8,17 @@ import {
   ChevronsLeft,
   ChevronsRight,
 } from "lucide-react";
+import { PrimaryButton } from "./Buttons/PrimaryButton";
+import { LinkButton } from "./Buttons/LinkButton";
 
 const navItems = [
-  { to: "/", icon: <Home className="h-6 w-6" />, label: "Home" },
-  { to: "/team", icon: <Users className="h-6 w-6" />, label: "Team" },
-  { to: "/customers", icon: <FileText className="h-6 w-6" />, label: "Customers" },
+  { to: "/", icon: <Home className="mx-2 h-6 w-6" />, label: "Home" },
+  { to: "/team", icon: <Users className="mx-2 h-6 w-6" />, label: "Team" },
+  {
+    to: "/customers",
+    icon: <FileText className="mx-2 h-6 w-6" />,
+    label: "Customers",
+  },
 ];
 
 const Sidebar = () => {
@@ -22,40 +28,41 @@ const Sidebar = () => {
     /* Hidden on small screens, flex layout from lg breakpoint */
     <aside
       className={`flex bg-primary-foreground p-6 flex-col ${
-        isOpen ? "w-64" : "w-20"
+        isOpen ? "w-64" : "w-24"
       } transition-width duration-200 ease-in-out`}
     >
       {/* Toggle button – always visible */}
-      <button
+      <PrimaryButton
+        className=" justify-center px-0! mb-4 text-left w-full focus:outline-none"
         onClick={() => setIsOpen((prev) => !prev)}
-        className="flex items-center justify-center mb-4 text-left w-full focus:outline-none"
       >
         {isOpen ? (
           <>
             <ChevronsLeft className="h-6 w-6" />
-            <span className="ml-2">Close</span>
+            <span className="font-bold">Close</span>
           </>
         ) : (
           <>
             <ChevronsRight className="h-6 w-6" />
           </>
         )}
-      </button>
+      </PrimaryButton>
 
       {/* Navigation links – icons always visible, labels hidden when closed */}
-      <nav className="flex flex-col gap-4">
+
+      <nav className="flex flex-col gap-2">
         {navItems.map((item) => (
-          <Link key={item.to} to={item.to}>
-            <button
-              className={`flex items-center w-full gap-3 text-left ${
-                isOpen ? "justify-start" : "justify-center"
-              }`}
-            >
-              {item.icon}
-              {/* Text label toggles with isOpen */}
-              <span className={isOpen ? "block" : "hidden"}>{item.label}</span>
-            </button>
-          </Link>
+          <LinkButton
+            key={item.to}
+            to={item.to}
+            className={`hover:bg-card transition-colors py-3 rounded-md ${
+              isOpen ? "justify-start" : "justify-center"
+            }`}
+          >
+            {item.icon}
+            {/* Text label toggles with isOpen */}
+            <span className={isOpen ? "block" : "hidden"}>{item.label}</span>
+          </LinkButton>
         ))}
       </nav>
 

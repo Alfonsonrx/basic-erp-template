@@ -139,7 +139,7 @@ export const TeammateDetailModal: React.FC<Props> = ({
 
   return (
     <Modal open={open} onClose={onClose} title="Detalles">
-      <div className="text-foreground mt-2 md:my-6 max-h-128 md:max-h-full overflow-scroll">
+      <div className="text-foreground mt-2 md:my-6 max-h-128 md:max-h-full overflow-y-scroll">
         {/* Info content */}
         <div className="flex flex-col md:flex-row gap-2 ">
           <div className="flex md:flex-col gap-2 ">
