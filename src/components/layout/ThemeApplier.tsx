@@ -1,11 +1,9 @@
 // ThemeManager.tsx  (now more like ThemeApplier)
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { setMode } from "@/reduxStore/theme/themeSlice";
+import {  useSelector } from "react-redux";
 import type { RootState } from "@types";
 
 function ThemeApplier() {
-  const dispatch = useDispatch();
   const { pair, mode } = useSelector((state: RootState) => state.theme);
   
 

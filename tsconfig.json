@@ -16,6 +16,7 @@
       "@utils/*": ["utils/*"],
       "@reduxStore/*": ["reduxStore/*"],
       "@types": ["types"],
+      "@styles": ["styles"],
       "@/*": ["*"]   // <‑‑ NEW
     },
     "types": ["node", "react", "react-dom"]

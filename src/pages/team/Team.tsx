@@ -26,7 +26,7 @@ function Team() {
   return (
     <div className="space-y-4">
       <div className="items-center justify-between my-4 mx-6">
-        <h2 className="text-4xl font-semibold mb-2">Team</h2>
+        <h2 className="text-3xl font-semibold mb-2">Team</h2>
         <div className="flex gap-2 flex-wrap">
           <form className="grow">
             <input

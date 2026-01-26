@@ -2,7 +2,7 @@
 import { PlusCircle } from "lucide-react";
 import { Modal } from "../Modal";
 import TaskTable from "./TaskTable";
-import type { Project, TaskItem } from "@types";
+import type { ProjectItem, TaskItem } from "@types";
 import ProjectsGrid from "./ProjectsGrid";
 import { Link } from "react-router-dom";
 
@@ -15,7 +15,7 @@ export interface TeammateDetailProps {
   status: "new" | "job as call" | "part-time" | "full-time" | "fired";
   createdAt: string; // ISO
   tasks: TaskItem[];
-  projects: Project[];
+  projects: ProjectItem[];
 }
 
 type Props = {
@@ -206,7 +206,7 @@ export const TeammateDetailModal: React.FC<Props> = ({
         </div>
       </div>
       <div className="flex justify-center mt-4">
-        <Link to={`/employees/${teammate}`}>
+        <Link to={`/team/${teammate}`}>
         <button
           type="button"
           className="inline-flex items-center gap-1 px-3 py-1 bg-primary text-foreground rounded-md hover:bg-primary/70"

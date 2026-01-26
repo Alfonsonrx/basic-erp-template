@@ -116,7 +116,7 @@ export default function TeammateDetail() {
                 {Teammate.tasks.map((t) => (
                   <li
                     key={t.id}
-                    className="flex items-center justify-between p-3 bg-background rounded-md shadow-sm"
+                    className="flex items-center justify-between p-3 bg-card rounded-md shadow-sm"
                   >
                     <div className="flex items-center gap-2">
                       <span>{t.title}</span>
@@ -146,7 +146,7 @@ export default function TeammateDetail() {
                 {Teammate.deals.map((d) => (
                   <li
                     key={d.id}
-                    className="flex flex-col p-3 bg-background rounded-md shadow-sm"
+                    className="flex flex-col p-3 bg-card rounded-md shadow-sm"
                   >
                     <div className="flex items-center gap-2 mb-1">
                       {d.completed ? (

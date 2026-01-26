@@ -1,10 +1,11 @@
 export interface Appointment {
     id: number;
     title: string;
-    time: string; // e.g., 'T09:00:00Z'
+    start: string; // e.g., '2024-06-20T22:51:20.801Z'
+    end: string; // e.g., '2024-06-20T22:51:20.801Z'
 }
 
 export interface basicSchedule {
     today: Appointment[];
-    tomorrow: Appointment[]; // e.g., 'T09:00:00Z'
+    tomorrow: Appointment[];
 }

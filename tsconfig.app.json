@@ -34,6 +34,7 @@
       "@utils/*": ["utils/*"],
       "@reduxStore/*": ["reduxStore/*"],
       "@types": ["types"],
+      "@styles": ["styles"],
       "@/*": ["*"] // <‑‑ NEW
     }
   },

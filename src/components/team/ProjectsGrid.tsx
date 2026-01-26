@@ -1,8 +1,8 @@
 import { Card } from "@components/Card";
-import type { Project } from "@types";
+import type { ProjectItem } from "@types";
 
 type Props = {
-  initialProjects: Project[];
+  initialProjects: ProjectItem[];
 };
 
 function ProjectsGrid({initialProjects}: Props) {

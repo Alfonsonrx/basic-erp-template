@@ -3,21 +3,23 @@ import { Link } from "react-router-dom";
 import {
   Home,
   Users,
-  FileText,
   PlusCircle,
   ChevronsLeft,
   ChevronsRight,
   NotebookText,
+  Calendar,
+  Box,
+  IdCard,
 } from "lucide-react";
 import { PrimaryButton } from "@components/Buttons/PrimaryButton";
 import { LinkButton } from "@components/Buttons/LinkButton";
 
 const navItems = [
   { to: "/", icon: <Home className="mx-2 h-6 w-6" />, label: "Home" },
-  { to: "/team", icon: <Users className="mx-2 h-6 w-6" />, label: "Team" },
+  { to: "/team", icon: <IdCard className="mx-2 h-6 w-6" />, label: "Team" },
   {
     to: "/customers",
-    icon: <FileText className="mx-2 h-6 w-6" />,
+    icon: <Users className="mx-2 h-6 w-6" />,
     label: "Customers",
   },
   {
@@ -25,6 +27,19 @@ const navItems = [
     icon: <NotebookText className="mx-2 h-6 w-6" />,
     label: "Projects",
   },
+
+  {
+    to: "/inventory",
+    icon: <Box className="mx-2 h-6 w-6" />,
+    label: "Inventory",
+  },
+
+  {
+    to: "/appointments",
+    icon: <Calendar className="mx-2 h-6 w-6" />,
+    label: "Appointments",
+  },
+
 ];
 
 const Sidebar = () => {

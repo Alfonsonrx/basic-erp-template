@@ -10,10 +10,11 @@ import { customers } from "@/dummyData/customers";
 import { PrimaryButton } from "@components/Buttons/PrimaryButton";
 import { SecondaryButton } from "@components/Buttons/SecondaryButton";
 import { IconButton } from "@components/Buttons/IconButton";
+import { useNavigate } from "react-router-dom";
 
 function Customers() {
   const [search, setSearch] = useState("");
-
+  const navigate = useNavigate();
   const filteredCustomers = customers.filter(
     (c) =>
       c.name.toLowerCase().includes(search.toLowerCase()) ||
@@ -21,10 +22,14 @@ function Customers() {
       c.email?.toLowerCase().includes(search.toLowerCase()),
   );
 
+  const goToDetail = (id: number) => {
+    navigate(`/customers/${id}`);
+  };
+
   return (
     <div className="space-y-4">
       <div className="items-center justify-between my-4 mx-6">
-        <h2 className="text-4xl font-semibold mb-2">Customers</h2>
+        <h2 className="text-3xl font-semibold mb-2">Customers</h2>
         <div className="flex gap-2 flex-wrap">
           <form className="grow">
             <input
@@ -77,7 +82,7 @@ function Customers() {
                   {customer.customer_type === "company" ? "Company" : "Person"}
                 </td>
                 <td className="flex gap-2 justify-center my-2">
-                  <PrimaryButton>
+                  <PrimaryButton onClick={() => goToDetail(customer.id)}>
                     <Eye size={16} />
                     Details
                   </PrimaryButton>
@@ -88,8 +93,8 @@ function Customers() {
         </table>
 
         <div className="mt-2 flex justify-end my-2 mx-6 gap-1">
-          <IconButton className="bg-primary/50" icon={ArrowLeft} />
-          <IconButton className="bg-primary/50" icon={ArrowRight} />
+          <IconButton className="bg-primary/50 p-2" icon={ArrowLeft} />
+          <IconButton className="bg-primary/50 p-2" icon={ArrowRight} />
         </div>
       </div>
 

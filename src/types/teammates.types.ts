@@ -21,5 +21,5 @@ export interface TeammateDetailData extends TeammateItem {
     | "fired";
   createdAt: string; // ISO
   tasks: TaskItem[];
-  deals: Deal[];
+  deals?: Deal[];
 };

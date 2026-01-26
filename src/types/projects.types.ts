@@ -1,23 +1,31 @@
+import type { LucideIcon } from "lucide-react";
 
-interface ProjectItem {
+export interface ProjectBase {
   id: number;
   name: string;
 }
 
-export interface Project extends ProjectItem {
+export interface ProjectItem extends ProjectBase {
   startDate: string; // ISO
   deadline: string; // ISO
-  status: "completed" | "cancelled" | "pending";
+  status: "completed" | "cancelled" | "pending" | "critical";
   type: string;
 }
 
+export interface ProjectCard extends ProjectItem {
+  tasks_quantity: number;
+  personal_assigned: number;
+}
+
+export type TaskStatus = "todo" | "inprogress"| "approval" | "done";
+
 export interface TaskItem {
   id: number;
-  project?: ProjectItem | null;
+  project?: ProjectBase | null;
   title: string;
-  status: "todo" | "inprogress" | "done";
-  date: string; // ISO
-  hour?: string | null
+  status: TaskStatus;
+  deadline: string; // ISO
+  hour?: string | null;
 }
 
 export interface Deal {
@@ -29,3 +37,10 @@ export interface Deal {
   attachments: string[]; // URLs or names
   completed: boolean;
 };
+
+export interface Column {
+  id: string;
+  title: string;
+  icon?: LucideIcon;
+  tasks: TaskItem[];
+}

@@ -1,17 +1,19 @@
 import { Card } from "@/components/Card";
-import { tasks, projects } from "@/dummyData/projects";
+import { tasks, dummyProjects } from "@/dummyData/projects";
 import { appointments } from "@/dummyData/appointments";
+import CalendarComponent from "@components/CalendarComponent";
+import { calendarAppointments } from "@/dummyData/appointments";
 
 function Home() {
   const today = new Date().toISOString().split("T")[0];
   const tomorrowDate = new Date();
   tomorrowDate.setDate(tomorrowDate.getDate() + 1);
 
-  const tasksToday = tasks.filter((t) => t.date.startsWith(today));
+  const tasksToday = tasks.filter((t) => t.deadline.startsWith(today));
   // For the demo we don't need tomorrow tasks separately
 
   // Projects where the profile is linked – for demo, all projects
-  const userProjects = projects;
+  const userProjects = dummyProjects;
 
   // Gamification metrics
   const totalTasks = tasks.length;
@@ -23,17 +25,17 @@ function Home() {
     appointments.today.length + appointments.tomorrow.length;
 
   // Determine max rows for table
-  const maxRows = Math.max(
-    appointments.today.length,
-    appointments.tomorrow.length,
-  );
+  // const maxRows = Math.max(
+  //   appointments.today.length,
+  //   appointments.tomorrow.length,
+  // );
 
   return (
     <div className="space-y-8 items-center justify-between m-6">
       <h2 className="text-3xl font-bold text-foreground">Welcome back!</h2>
-      <div className="flex gap-6 flex-wrap ">
+      <div className="gap-6 ">
         {/* <div className="grow grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"> */}
-        <div className="flex flex-col grow gap-4">
+        <div className="flex flex-col gap-4">
           {/* Objectives */}
           <Card classname="bg-card" title="Objectives">
             <p>
@@ -65,32 +67,10 @@ function Home() {
         </div>
 
         {/* Appointments of the profile that day and next */}
-        <Card classname="bg-card w-full lg:w-4/12" title="Appointments">
-          <table className="w-full border-collapse ">
-            <thead>
-              <tr>
-                <th className="text-left px-2 py-1 font-medium">Today</th>
-                <th className="text-left px-2 py-1 font-medium">Tomorrow</th>
-              </tr>
-            </thead>
-            <tbody>
-              {Array.from({ length: maxRows }).map((_, idx) => (
-                <tr key={idx}>
-                  <td className="border-t px-2 py-1">
-                    {appointments.today[idx]
-                      ? `${appointments.today[idx].title} (${appointments.today[idx].time})`
-                      : ""}
-                  </td>
-                  <td className="border-t px-2 py-1">
-                    {appointments.tomorrow[idx]
-                      ? `${appointments.tomorrow[idx].title} (${appointments.tomorrow[idx].time})`
-                      : ""}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </Card>
+        <div className="p-4">
+          <h2 className="text-2xl font-semibold mb-2">Schedule</h2>
+          <CalendarComponent appointments={calendarAppointments} />
+        </div>
       </div>
     </div>
   );
