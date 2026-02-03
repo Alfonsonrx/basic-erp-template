@@ -1,7 +1,6 @@
 "use client";
 
 // import * as React from "react";
-import { CheckCircle2, Clock } from "lucide-react";
 import type { Column, TaskItem } from "@types";
 import KanbanColumn from "./KanbanColumn";
 import { useState, type DragEvent } from "react";
@@ -115,9 +114,11 @@ export function KanbanBoard() {
   const [dragOverColumn, setDragOverColumn] = useState<string | null>(null);
   const [draggedTaskId, setDraggedTaskId] = useState<number | null>(null);
 
-  const handleDragStart = (e: DragEvent, taskId: number) => {
-    setDraggedTaskId(taskId);
-    e.dataTransfer.effectAllowed = "move";
+  const handleDragStart = (e: DragEvent, taskId: number | null) => {
+    if (taskId) {
+      setDraggedTaskId(taskId);
+      e.dataTransfer.effectAllowed = "move";
+    }
   };
 
   const handleDragOver = (e: DragEvent) => {

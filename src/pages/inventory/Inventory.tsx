@@ -1,7 +1,19 @@
 "use client";
 
 import { useState } from "react";
-import { Pencil, Trash2, PlusCircle } from "lucide-react";
+import {
+  Pencil,
+  Trash2,
+  PlusCircle,
+  PaperclipIcon,
+  ArrowLeft,
+  ArrowRight,
+} from "lucide-react";
+import {
+  IconButton,
+  PrimaryButton,
+  SecondaryButton,
+} from "@components/Buttons";
 
 type Product = {
   id: number;
@@ -16,20 +28,22 @@ const initialProducts: Product[] = [
 ];
 
 export default function Inventory() {
+  const [search, setSearch] = useState("");
+
   const [products, setProducts] = useState<Product[]>(initialProducts);
   const [editingId, setEditingId] = useState<number | null>(null);
 
   const handleChange = (
     id: number,
     field: keyof Omit<Product, "id">,
-    value: string
+    value: string,
   ) => {
     setProducts((prev) =>
       prev.map((p) =>
         p.id === id
           ? { ...p, [field]: field === "name" ? value : Number(value) }
-          : p
-      )
+          : p,
+      ),
     );
   };
 
@@ -48,91 +62,121 @@ export default function Inventory() {
 
   return (
     <div className="space-y-4">
-      <h2 className="text-xl font-semibold">Inventory</h2>
-      <table className="min-w-full border-collapse bg-primary-foreground rounded-md shadow-sm">
-        <thead>
-          <tr className="text-left text-xs font-medium uppercase tracking-wider text-foreground">
-            <th className="px-4 py-2">Product</th>
-            <th className="px-4 py-2">Quantity</th>
-            <th className="px-4 py-2">Price ($)</th>
-            <th className="px-4 py-2">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {products.map((p) => (
-            <tr key={p.id} className="border-b">
-              <td className="px-4 py-2">
-                {editingId === p.id ? (
-                  <input
-                    type="text"
-                    value={p.name}
-                    onChange={(e) => handleChange(p.id, "name", e.target.value)}
-                    className="w-full border rounded px-1 py-0.5 focus:outline-none focus:ring-2 focus:ring-primary text-foreground"
-                  />
-                ) : (
-                  p.name
-                )}
-              </td>
-              <td className="px-4 py-2">
-                {editingId === p.id ? (
-                  <input
-                    type="number"
-                    value={p.quantity}
-                    onChange={(e) =>
-                      handleChange(p.id, "quantity", e.target.value)
-                    }
-                    className="w-full border rounded px-1 py-0.5 focus:outline-none focus:ring-2 focus:ring-primary text-foreground"
-                  />
-                ) : (
-                  p.quantity
-                )}
-              </td>
-              <td className="px-4 py-2">
-                {editingId === p.id ? (
-                  <input
-                    type="number"
-                    step="0.01"
-                    value={p.price}
-                    onChange={(e) =>
-                      handleChange(p.id, "price", e.target.value)
-                    }
-                    className="w-full border rounded px-1 py-0.5 focus:outline-none focus:ring-2 focus:ring-primary text-foreground"
-                  />
-                ) : (
-                  p.price.toFixed(2)
-                )}
-              </td>
-              <td className="px-4 py-2 flex items-center gap-2">
-                {/* {editingId === p.id ? (
-                ) : null} */}
-                <button
-                  onClick={() => {
-                    setEditingId(editingId ? null : p.id);
-                  }}
-                  className="text-green-600 hover:text-green-800"
-                >
-                  <Pencil size={18} />
-                </button>
-                <button
-                  onClick={() => deleteProduct(p.id)}
-                  className="text-red-600 hover:text-red-800"
-                >
-                  <Trash2 size={18} />
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <div className="items-center justify-between my-4 mx-6">
+        <h2 className="text-3xl font-semibold mb-2">Inventory</h2>
+        <div className="flex gap-2 flex-wrap">
+          <form className="grow">
+            <input
+              type="text"
+              placeholder="Search teammate…"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="w-full h-full rounded-md border px-3 py-1 focus:outline-none focus:ring-2 focus:ring-primary text-foreground bg-background"
+            />
+          </form>
+          <div className="flex justify-center gap-2 flex-wrap">
+            <SecondaryButton>
+              <PaperclipIcon size={16} />
+              Export
+            </SecondaryButton>
+            <PrimaryButton
+              onClick={addProduct}
+              className="text-gray-100 font-medium"
+            >
+              <PlusCircle size={16} />
+              Add Product
+            </PrimaryButton>
+          </div>
+        </div>
+      </div>
 
-      <div className="flex justify-end">
-        <button
-          onClick={addProduct}
-          className="inline-flex items-center gap-1 px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90"
-        >
-          <PlusCircle size={18} />
-          Add Product
-        </button>
+      <div className="bg-card max-h-96 overflow-auto border-y border-border ">
+        <table className="min-w-full divide-y divide-border border-b">
+          <thead>
+            <tr className="text-center text-xs font-medium uppercase tracking-wider">
+              <th className="px-4 py-2 ">Name</th>
+              <th className="px-4 py-2 hidden md:table-cell">Email</th>
+              <th className="px-4 py-2 hidden md:table-cell">Role</th>
+              <th className="px-4 py-2">Actions</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-border">
+            {products.map((product) => (
+              <tr
+                key={product.id}
+                className="text-center hover:bg-background/10 transition-colors"
+              >
+                <td>
+                  {editingId === product.id ? (
+                    <input
+                      type="text"
+                      value={product.name}
+                      onChange={(e) =>
+                        handleChange(product.id, "name", e.target.value)
+                      }
+                      className="w-full border rounded px-1 py-0.5 focus:outline-none focus:ring-2 focus:ring-primary text-foreground"
+                    />
+                  ) : (
+                    product.name
+                  )}
+                </td>
+                <td className=" hidden md:table-cell">
+                  {editingId === product.id ? (
+                    <input
+                      type="number"
+                      value={product.quantity}
+                      onChange={(e) =>
+                        handleChange(product.id, "quantity", e.target.value)
+                      }
+                      className="w-full border rounded px-1 py-0.5 focus:outline-none focus:ring-2 focus:ring-primary text-foreground"
+                    />
+                  ) : (
+                    product.quantity
+                  )}
+                </td>
+
+                <td className=" hidden md:table-cell">
+                  {editingId === product.id ? (
+                    <input
+                      type="number"
+                      step="0.01"
+                      value={product.price}
+                      onChange={(e) =>
+                        handleChange(product.id, "price", e.target.value)
+                      }
+                      className="w-full border rounded px-1 py-0.5 focus:outline-none focus:ring-2 focus:ring-primary text-foreground"
+                    />
+                  ) : (
+                    product.price.toFixed(2)
+                  )}
+                </td>
+                <td className="flex gap-4 justify-center my-2">
+                  {/* <PrimaryButton>
+                    <Pencil size={16} />
+                    Edit
+                  </PrimaryButton> */}
+                  <IconButton
+                    icon={Pencil}
+                    className="text-green-700 hover:text-green-600 hover:bg-transparent"
+                    onClick={() => {
+                      setEditingId(editingId ? null : product.id);
+                    }}
+                  />
+                  <IconButton
+                    icon={Trash2}
+                    className="text-red-600 hover:text-red-800 hover:bg-transparent"
+                    onClick={() => deleteProduct(product.id)}
+                  />
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+
+        <div className="mt-2 flex justify-end my-2 mx-6 gap-1">
+          <IconButton className="bg-primary/50 p-2" icon={ArrowLeft} />
+          <IconButton className="bg-primary/50 p-2" icon={ArrowRight} />
+        </div>
       </div>
     </div>
   );

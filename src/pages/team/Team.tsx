@@ -6,21 +6,28 @@ import { dummyTeammates } from "@/dummyData/projects";
 import { PrimaryButton } from "@components/Buttons/PrimaryButton";
 import { SecondaryButton } from "@components/Buttons/SecondaryButton";
 import { IconButton } from "@components/Buttons/IconButton";
+import { TeammateCreateModal } from "@components/team/TeammateCreateModal";
 
 function Team() {
   const [search, setSearch] = useState("");
   const [teammates, setTeammates] = useState<TeammateItem[]>(dummyTeammates);
-  const [editingId, setEditingId] = useState<number | null>(null);
 
-  // Modal state
+  // Detail modal state
   const [selectedTeammateId, setSelectedTeammateId] = useState<number | null>(
     null,
   );
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
+
+  // Create modal state
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
 
   const openDetailModal = (empId: number) => {
     setSelectedTeammateId(empId);
-    setIsModalOpen(true);
+    setIsDetailModalOpen(true);
+  };
+
+  const openCreateModal = () => {
+    setIsCreateModalOpen(true);
   };
 
   return (
@@ -42,19 +49,7 @@ function Team() {
               <PaperclipIcon size={16} />
               Export
             </SecondaryButton>
-            <PrimaryButton
-              onClick={() => {
-                // Placeholder for add employee logic
-                const newId = teammates.length
-                  ? Math.max(...teammates.map((t) => t.id)) + 1
-                  : 1;
-                setTeammates([
-                  ...teammates,
-                  { id: newId, name: "", role: "", email: "", phone: "" },
-                ]);
-                setEditingId(newId);
-              }}
-            >
+            <PrimaryButton onClick={openCreateModal}>
               <PlusCircle size={16} />
               Add Teammate
             </PrimaryButton>
@@ -107,14 +102,20 @@ function Team() {
         </div>
       </div>
 
-      {/* Modal */}
+      {/* Detail Modal */}
       <TeammateDetailModal
-        open={isModalOpen}
+        open={isDetailModalOpen}
         onClose={() => {
-          setIsModalOpen(false);
+          setIsDetailModalOpen(false);
           setSelectedTeammateId(null);
         }}
         teammate={selectedTeammateId ?? undefined}
+      />
+
+      {/* Create Modal */}
+      <TeammateCreateModal
+        open={isCreateModalOpen}
+        onClose={() => setIsCreateModalOpen(false)}
       />
     </div>
   );

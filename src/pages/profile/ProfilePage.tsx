@@ -110,10 +110,6 @@ export default function ProfilePage() {
             <h4 className="font-medium">Tasks Assigned</h4>
             <p>{user.tasks.length}</p>
           </div>
-          {/* <div className="p-4 bg-card rounded-md shadow-sm">
-            <h4 className="font-medium">Deals Handled</h4>
-            <p>{user.deals.length}</p>
-          </div> */}
         </div>
       </section>
 
@@ -142,35 +138,6 @@ export default function ProfilePage() {
           </ul>
         )}
       </section>
-
-      {/* Deals list */}
-      {/* <section className="mt-8">
-        <div className="flex items-center justify-between mb-2">
-          <h3 className="text-xl font-semibold">Deals</h3>
-        </div>
-        {user.deals.length === 0 ? (
-          <p className="text-sm text-muted-foreground">No deals recorded.</p>
-        ) : (
-          <ul className="space-y-2">
-            {user.deals.map((d) => (
-              <li key={d.id} className="flex flex-col p-3 bg-card rounded-md shadow-sm">
-                <div className="flex items-center gap-2 mb-1">
-                  {d.completed ? (<CheckCircle size={18} className="text-green-600" />) : (<XCircle size={18} className="text-red-600" />)}
-                  <span className="font-medium">{d.type}</span>
-                </div>
-                <p className="text-sm text-muted-foreground">Amount: ${d.amount.toLocaleString()}</p>
-                <p className="text-sm text-muted-foreground">Status: {d.status}</p>
-                <p className="text-sm text-muted-foreground">Closing date: {new Date(d.closingDate).toLocaleDateString()}</p>
-                {d.attachments.length > 0 && (
-                  <div className="mt-1 flex items-center gap-2 text-sm text-muted-foreground">
-                    <FileText size={16} /> Attachments: {d.attachments.join(", ")}
-                  </div>
-                )}
-              </li>
-            ))}
-          </ul>
-        )}
-      </section> */}
 
       {/* Save button if in edit mode */}
       {editMode && (

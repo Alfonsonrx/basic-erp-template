@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { CheckCircle, XCircle, FileText, PlusCircle } from "lucide-react";
+import { PlusCircle } from "lucide-react";
 import type { TeammateDetailData } from "@types";
 
 const dummyTeammatesDetail: TeammateDetailData[] = [
@@ -16,36 +16,38 @@ const dummyTeammatesDetail: TeammateDetailData[] = [
       {
         id: 101,
         title: "Prepare quarterly report",
-        date: "2024-07-10",
+        deadline: "2024-07-10",
         hour: "10:00",
         status: "done",
       },
       {
         id: 102,
         title: "Team meeting",
-        date: "2024-07-12",
+        deadline: "2024-07-12",
         hour: "14:00",
         status: "done",
       },
     ],
-    deals: [
+    projects: [
       {
-        id: 201,
-        amount: 5000,
-        status: "deal",
-        closingDate: "2024-08-01",
-        type: "Contract Renewal",
-        attachments: ["contract.pdf"],
-        completed: true,
+        id: 1,
+        name: "Website Redesign",
+        startDate: "2024-01-10",
+        deadline: "2024-04-30",
+        status: "pending",
+        type: "Web",
+        tasks_quantity: 20,
+        personal_assigned: 4,
       },
       {
-        id: 202,
-        amount: 12000,
-        status: "pending",
-        closingDate: "2024-09-15",
-        type: "New Client Acquisition",
-        attachments: [],
-        completed: false,
+        id: 2,
+        name: "Mobile App Launch",
+        startDate: "2023-12-01",
+        deadline: "2024-03-15",
+        status: "completed",
+        type: "App",
+        tasks_quantity: 20,
+        personal_assigned: 4,
       },
     ],
   },
@@ -122,7 +124,7 @@ export default function TeammateDetail() {
                       <span>{t.title}</span>
                     </div>
                     <span className="text-sm text-muted-foreground">
-                      {t.date} @ {t.hour}
+                      {t.deadline} @ {t.hour}
                     </span>
                   </li>
                 ))}
@@ -131,53 +133,6 @@ export default function TeammateDetail() {
           </section>
         </div>
 
-        {/* Deals column */}
-        <div className="space-y-6">
-          {/* Deals section */}
-          <section className="space-y-4">
-            <h3 className="text-xl font-semibold">Deals</h3>
-
-            {Teammate.deals.length === 0 ? (
-              <p className="text-sm text-muted-foreground">
-                No deals recorded.
-              </p>
-            ) : (
-              <ul className="space-y-2">
-                {Teammate.deals.map((d) => (
-                  <li
-                    key={d.id}
-                    className="flex flex-col p-3 bg-card rounded-md shadow-sm"
-                  >
-                    <div className="flex items-center gap-2 mb-1">
-                      {d.completed ? (
-                        <CheckCircle size={18} className="text-green-600" />
-                      ) : (
-                        <XCircle size={18} className="text-red-600" />
-                      )}
-                      <span className="font-medium">{d.type}</span>
-                    </div>
-                    <p className="text-sm text-muted-foreground">
-                      Amount: ${d.amount.toLocaleString()}
-                    </p>
-                    <p className="text-sm text-muted-foreground">
-                      Status: {d.status}
-                    </p>
-                    <p className="text-sm text-muted-foreground">
-                      Closing date:{" "}
-                      {new Date(d.closingDate).toLocaleDateString()}
-                    </p>
-                    {d.attachments.length > 0 && (
-                      <div className="mt-1 flex items-center gap-2 text-sm text-muted-foreground">
-                        <FileText size={16} />
-                        Attachments: {d.attachments.join(", ")}
-                      </div>
-                    )}
-                  </li>
-                ))}
-              </ul>
-            )}
-          </section>
-        </div>
       </div>
     </div>
   );

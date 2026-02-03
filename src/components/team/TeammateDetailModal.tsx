@@ -1,6 +1,6 @@
 
 import { PlusCircle } from "lucide-react";
-import { Modal } from "../Modal";
+import { Modal } from "../ui/Modal";
 import TaskTable from "./TaskTable";
 import type { ProjectItem, TaskItem } from "@types";
 import ProjectsGrid from "./ProjectsGrid";
@@ -55,7 +55,7 @@ export const TeammateDetailModal: React.FC<Props> = ({
       {
         id: 101,
         title: "Finalize Q3 roadmap",
-        date: "2024‑08‑01",
+        deadline: "2024‑08‑01",
         hour: "10:00",
         status: "todo",
       },
@@ -63,7 +63,7 @@ export const TeammateDetailModal: React.FC<Props> = ({
         id: 102,
         project: { id: 1, name: "Website Redesign" },
         title: "Client demo for new feature",
-        date: "2024‑08‑05",
+        deadline: "2024‑08‑05",
         hour: "14:30",
         status: "done",
       },
@@ -72,7 +72,7 @@ export const TeammateDetailModal: React.FC<Props> = ({
         id: 103,
         project: { id: 2, name: "Mobile App Launch" },
         title: "Finalize Q3 roadmap",
-        date: "2024‑08‑01",
+        deadline: "2024‑08‑01",
         hour: "10:00",
         status: "todo",
       },
@@ -80,7 +80,7 @@ export const TeammateDetailModal: React.FC<Props> = ({
         id: 104,
         project: { id: 1, name: "Website Redesign" },
         title: "Client demo for new feature",
-        date: "2024‑08‑05",
+        deadline: "2024‑08‑05",
         hour: "14:30",
         status: "done",
       },
@@ -88,7 +88,7 @@ export const TeammateDetailModal: React.FC<Props> = ({
         id: 105,
         project: { id: 2, name: "Mobile App Launch" },
         title: "Client demo for new feature",
-        date: "2024‑08‑05",
+        deadline: "2024‑08‑05",
         hour: "14:30",
         status: "inprogress",
       },

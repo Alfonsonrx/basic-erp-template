@@ -65,26 +65,28 @@ export default function Navbar() {
 
         {/* Dropdown menu */}
         <div
-          className={`${
-            isUserMenuOpen ? "max-h-48 opacity-100" : "max-h-0 opacity-0"
+          className={` ${
+            isUserMenuOpen ? "opacity-100" : "opacity-0"
           } transition-all duration-200`}
           onMouseLeave={() => setIsUserMenuOpen(false)}
         >
           {/* <div className="fixed inset-0 z-10" onClick={() => setIsUserMenuOpen(false)} /> */}
-          <div className="absolute flex flex-col right-0 top-full mt-4 w-48 bg-card border border-border rounded-md shadow-lg z-20">
-            <Link
-              to="/profile"
-              className="w-full px-4 py-2 text-left hover:bg-border transition-colors"
-            >
-              My Profile
-            </Link>
-            <span
-              className="cursor-pointer w-full px-4 py-2 text-left hover:bg-border transition-colors text-destructive"
-              onClick={handleLogout}
-            >
-              Logout
-            </span>
-          </div>
+          {isUserMenuOpen && (
+            <div className="absolute overflow-hidden flex flex-col right-0 top-full mt-4 w-48 bg-card border border-border rounded-md shadow-lg z-20">
+              <Link
+                to="/profile"
+                className="w-full px-4 py-2 text-left hover:bg-border transition-colors"
+              >
+                My Profile
+              </Link>
+              <span
+                className="cursor-pointer w-full px-4 py-2 text-left hover:bg-border transition-colors text-destructive"
+                onClick={handleLogout}
+              >
+                Logout
+              </span>
+            </div>
+          )}
         </div>
       </div>
     </header>

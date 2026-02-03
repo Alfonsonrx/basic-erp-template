@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { PrimaryButton, SecondaryButton } from "@components/Buttons";
+import { PrimaryButton } from "@components/Buttons";
 import { loginSuccess, signupSuccess } from "@reduxStore/auth/authSlice";
 
 // Fake API call – resolves with dummy tokens after a short delay
@@ -19,10 +19,12 @@ const fakeAuth = (isLogin: boolean) => {
 export default function AuthPage() {
   const dispatch = useDispatch();
   const [isLogin, setIsLogin] = useState(true);
+  
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [role, setRole] = useState("employee"); // default role for sign‑up
+  
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 

@@ -123,7 +123,8 @@ export const dummyProrile: TeammateDetailData = {
   revenue: 400,
   status: "full-time",
   createdAt: "2026-01-05",
-  tasks: tasks
+  tasks: tasks,
+  projects: dummyProjects
 };
 export const dummyProjectColumns: Column[] = [
   {

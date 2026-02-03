@@ -1,5 +1,5 @@
 import React from "react";
-import { IconButton } from "./Buttons";
+import { IconButton } from "../Buttons";
 import { ChevronRight } from "lucide-react";
 
 export const Card: React.FC<{
@@ -15,7 +15,7 @@ export const Card: React.FC<{
         <IconButton
           onClick={onFunctionClick}
           icon={ChevronRight}
-          className="p-2 opacity-0 group-hover:opacity-100 transition-opacity bg-border"
+          className="p-1 opacity-0 group-hover:opacity-100 transition-opacity bg-border"
         />
       ) : null}
     </div>

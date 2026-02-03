@@ -1,4 +1,4 @@
-import { Card } from "@components/Card";
+import { Card } from "@components/ui/Card";
 import type { ProjectCard } from "@types";
 import { ListTree, User } from "lucide-react";
 import { useNavigate } from "react-router-dom";

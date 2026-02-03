@@ -6,7 +6,7 @@ import {
   projectBudgets,
 } from "@/dummyData/projects";
 import type { ProjectCard } from "@types";
-import { Card } from "@components/Card";
+import { Card } from "@components/ui/Card";
 import { User } from "lucide-react";
 import { KanbanBoard } from "@components/projects/kanban/ProjectKanban";
 
@@ -26,6 +26,8 @@ function ProjectDetail() {
 
   return (
     <div className="p-6 space-y-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+
       <Card title={project.name} classname="bg-card p-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
@@ -65,6 +67,7 @@ function ProjectDetail() {
           ))}
         </ul>
       </Card>
+      </div>
 
       {/* Tasks */}
       <KanbanBoard />

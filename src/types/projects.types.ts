@@ -17,10 +17,13 @@ export interface ProjectCard extends ProjectItem {
   personal_assigned: number;
 }
 
-export type TaskStatus = "todo" | "inprogress"| "approval" | "done";
+export type TaskStatus = "todo" | 
+                         "inprogress" | 
+                         "approval" | 
+                         "done";
 
 export interface TaskItem {
-  id: number;
+  id: number | null;
   project?: ProjectBase | null;
   title: string;
   status: TaskStatus;
