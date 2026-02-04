@@ -6,14 +6,18 @@ import {
   PaperclipIcon,
   PlusCircle,
 } from "lucide-react";
-import { customers } from "@/dummyData/customers";
+import { customers as initialCustomers } from "@/dummyData/customers";
 import { PrimaryButton } from "@components/Buttons/PrimaryButton";
 import { SecondaryButton } from "@components/Buttons/SecondaryButton";
 import { IconButton } from "@components/Buttons/IconButton";
 import { useNavigate } from "react-router-dom";
+import { CreateCustomerModal } from "@components/customers/CreateCustomerModal";
+import type { Customer } from "@types";
 
 function Customers() {
   const [search, setSearch] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [customers, setCustomers] = useState<Customer[]>(initialCustomers);
   const navigate = useNavigate();
   const filteredCustomers = customers.filter(
     (c) =>
@@ -45,7 +49,7 @@ function Customers() {
               <PaperclipIcon size={16} />
               Export
             </SecondaryButton>
-            <PrimaryButton>
+            <PrimaryButton onClick={() => setIsModalOpen(true)}>
               <PlusCircle size={16} />
               Add Customer
             </PrimaryButton>
@@ -104,6 +108,15 @@ function Customers() {
           No Customers match your search.
         </p>
       )}
+
+      {/* Create Customer Modal */}
+      <CreateCustomerModal
+        open={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onCreate={(newCustomer) => {
+          setCustomers((prev) => [...prev, newCustomer]);
+        }}
+      />
     </div>
   );
 }

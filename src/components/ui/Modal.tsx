@@ -17,7 +17,7 @@ export const Modal: React.FC<ModalProps> = ({
   children,
   panelClass
 }) => {
-  
+
   // Ensure a root element exists for the portal
   let modalRoot = document.getElementById("modal-root");
   if (!modalRoot) {
@@ -25,9 +25,9 @@ export const Modal: React.FC<ModalProps> = ({
     modalRoot.id = "modal-root";
     document.body.appendChild(modalRoot);
   }
-  
+
   const el = document.createElement("div");
-  
+
   useEffect(() => {
     modalRoot!.appendChild(el);
     return () => {
@@ -35,7 +35,7 @@ export const Modal: React.FC<ModalProps> = ({
     };
   }, [el, modalRoot]);
   if (!open) return null;
-  
+
   const content = (
     <div className="fixed inset-0 flex items-center justify-center z-50">
       {/* Overlay */}

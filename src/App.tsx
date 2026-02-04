@@ -1,14 +1,15 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Layout from "./containers/Layout";
 import { Home } from "@pages/home";
+import { Settings } from "@pages/settings";
 import { Inventory } from "@pages/inventory";
-import { AddCustomer, CustomerDetail, Customers } from "@pages/customers";
+import { CustomerDetail, Customers } from "@pages/customers";
 import { Team, TeammateDetail } from "@pages/team";
-import { Projects, ProjectDetail, CreateProject } from "@pages/projects";
-import { AuthPage, ForgotPassword } from "@pages/auth";
+import { Projects, ProjectDetail } from "@pages/projects";
+import { AuthPage, ForgotPassword, AccountActivation } from "@pages/auth";
 import AuthLayout from "@containers/AuthLayout";
 import PrivateRoute from "@containers/PrivateRoute";
-import { CalendarTest } from "@pages/calendartest";
+import { Appointments } from "@pages/appointments";
 import { ProfilePage } from "@pages/profile";
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
         <Route path="auth" element={<AuthLayout />}>
           <Route index element={<AuthPage />} />
           <Route path="forgot-password" element={<ForgotPassword />} />
+          <Route path="activate" element={<AccountActivation />} />
         </Route>
         <Route element={<PrivateRoute />}>
           <Route element={<Layout />}>
@@ -27,12 +29,11 @@ function App() {
             <Route path="team/:id" element={<TeammateDetail />} />
             <Route path="customers" element={<Customers />} />
             <Route path="customers/:id" element={<CustomerDetail />} />
-            <Route path="customers/add" element={<AddCustomer />} />
             <Route path="projects" element={<Projects />} />
-            <Route path="projects/create" element={<CreateProject />} />
             <Route path="projects/:id" element={<ProjectDetail />} />
             <Route path="inventory" element={<Inventory />} />
-            <Route path="appointments" element={<CalendarTest />} />
+            <Route path="appointments" element={<Appointments />} />
+            <Route path="settings" element={<Settings />} />
           </Route>
         </Route>
       </Routes>

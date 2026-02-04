@@ -5,12 +5,16 @@ import { ChevronRight } from "lucide-react";
 export const Card: React.FC<{
   classname?: string;
   title?: string;
+  icon?: React.ReactNode;
   children?: React.ReactNode;
   onFunctionClick?: () => void;
-}> = ({ classname, title, children, onFunctionClick }) => (
+}> = ({ classname, title, icon, children, onFunctionClick }) => (
   <div className={`rounded-lg shadow-lg p-4 flex flex-col group ${classname}`}>
-    <div className="flex justify-between items-center ">
-      <h3 className="text-lg font-semibold">{title}</h3>
+    <div className="flex justify-between items-center mb-3">
+      <div className="flex items-center gap-2">
+        {icon && <span className="text-primary">{icon}</span>}
+        <h3 className="text-lg font-semibold">{title}</h3>
+      </div>
       {onFunctionClick ? (
         <IconButton
           onClick={onFunctionClick}

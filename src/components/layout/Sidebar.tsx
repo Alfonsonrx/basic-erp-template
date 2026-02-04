@@ -3,13 +3,13 @@ import { Link } from "react-router-dom";
 import {
   Home,
   Users,
-  PlusCircle,
   ChevronsLeft,
   ChevronsRight,
   NotebookText,
   Calendar,
   Box,
   IdCard,
+  Settings,
 } from "lucide-react";
 import { PrimaryButton } from "@components/Buttons/PrimaryButton";
 import { LinkButton } from "@components/Buttons/LinkButton";
@@ -39,7 +39,6 @@ const navItems = [
     icon: <Calendar className="mx-2 h-6 w-6" />,
     label: "Appointments",
   },
-
 ];
 
 const Sidebar = () => {
@@ -87,13 +86,18 @@ const Sidebar = () => {
         ))}
       </nav>
 
-      {/* Add Client button – icon always visible, label hidden when closed */}
+      {/* Settings link – icon always visible, label hidden when closed */}
       <div className="mt-auto">
-        <Link to="/clients/add">
-          <button className="flex items-center justify-center w-full gap-2">
-            <PlusCircle className="h-6 w-6" />
-            <span className={isOpen ? "block" : "hidden"}>Add Client</span>
-          </button>
+        <Link to="/settings">
+          <LinkButton
+            to="/settings"
+            className={`hover:bg-card transition-colors py-3 rounded-md w-full ${
+              isOpen ? "justify-start" : "justify-center"
+            }`}
+          >
+            <Settings className="mx-2 h-6 w-6" />
+            <span className={isOpen ? "block" : "hidden"}>Settings</span>
+          </LinkButton>
         </Link>
       </div>
     </aside>
