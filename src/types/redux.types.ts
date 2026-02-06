@@ -1,7 +1,9 @@
 import type { AuthState } from "../reduxStore/auth/authSlice";
 import type { ThemeState } from "../reduxStore/theme/themeSlice";
+import type { PermissionsState } from "../reduxStore/permissions/permissionsSlice";
 
 export interface RootState {
-  auth: AuthState; // Replace with actual auth state type if known
+  auth: AuthState;
   theme: ThemeState;
+  permissions: PermissionsState;
 }

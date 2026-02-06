@@ -7,8 +7,10 @@ import { CustomerDetail, Customers } from "@pages/customers";
 import { Team, TeammateDetail } from "@pages/team";
 import { Projects, ProjectDetail } from "@pages/projects";
 import { AuthPage, ForgotPassword, AccountActivation } from "@pages/auth";
+import { Billing, Permissions } from "@pages/admin";
 import AuthLayout from "@containers/AuthLayout";
 import PrivateRoute from "@containers/PrivateRoute";
+import { ProtectedRoute } from "@containers/ProtectedRoute";
 import { Appointments } from "@pages/appointments";
 import { ProfilePage } from "@pages/profile";
 
@@ -34,6 +36,24 @@ function App() {
             <Route path="inventory" element={<Inventory />} />
             <Route path="appointments" element={<Appointments />} />
             <Route path="settings" element={<Settings />} />
+            
+            {/* Admin-only routes */}
+            <Route
+              path="admin/billing"
+              element={
+                <ProtectedRoute requiredPermission="billing:manage">
+                  <Billing />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="admin/permissions"
+              element={
+                <ProtectedRoute requiredPermission="admin:permissions">
+                  <Permissions />
+                </ProtectedRoute>
+              }
+            />
           </Route>
         </Route>
       </Routes>

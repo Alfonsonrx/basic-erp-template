@@ -1,4 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import { Card } from "@components/ui/Card";
 import { 
   Palette, 
@@ -8,11 +9,15 @@ import {
   Bell,
   Globe,
   Shield,
-  Save
+  Save,
+  CreditCard,
+  Users,
+  ArrowRight
 } from "lucide-react";
 import { PrimaryButton } from "@components/Buttons";
 import { setMode, setThemePair, type ThemePair } from "@reduxStore/theme/themeSlice";
 import type { RootState } from "@types";
+import { usePermissions } from "@hooks/usePermissions";
 
 const themeOptions: { value: ThemePair; label: string; color: string }[] = [
   { value: "corporate", label: "Corporate", color: "bg-blue-600" },
@@ -24,6 +29,7 @@ const themeOptions: { value: ThemePair; label: string; color: string }[] = [
 export default function Settings() {
   const dispatch = useDispatch();
   const { mode, pair } = useSelector((state: RootState) => state.theme);
+  const { hasPermission } = usePermissions();
 
   const handleModeChange = (newMode: 'light' | 'dark') => {
     dispatch(setMode(newMode));
@@ -194,6 +200,51 @@ export default function Settings() {
           </div>
         </div>
       </Card>
+
+      {/* Admin Section - Only visible to users with admin permissions */}
+      {(hasPermission('billing:manage') || hasPermission('admin:permissions')) && (
+        <Card title="Administration" icon={<Shield className="w-5 h-5" />}>
+          <div className="space-y-3">
+            <p className="text-sm text-muted-foreground mb-4">
+              Access administrative features and system management tools.
+            </p>
+            {hasPermission('billing:manage') && (
+              <Link
+                to="/admin/billing"
+                className="flex items-center justify-between p-3 bg-background rounded-lg border border-border hover:border-primary/50 transition-colors"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="p-2 bg-primary/10 rounded-lg">
+                    <CreditCard className="w-4 h-4 text-primary" />
+                  </div>
+                  <div>
+                    <p className="font-medium text-sm">Billing & Subscription</p>
+                    <p className="text-xs text-muted-foreground">Manage plans, payments, and invoices</p>
+                  </div>
+                </div>
+                <ArrowRight className="w-4 h-4 text-muted-foreground" />
+              </Link>
+            )}
+            {hasPermission('admin:permissions') && (
+              <Link
+                to="/admin/permissions"
+                className="flex items-center justify-between p-3 bg-background rounded-lg border border-border hover:border-primary/50 transition-colors"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="p-2 bg-primary/10 rounded-lg">
+                    <Users className="w-4 h-4 text-primary" />
+                  </div>
+                  <div>
+                    <p className="font-medium text-sm">Permissions Management</p>
+                    <p className="text-xs text-muted-foreground">Manage user roles and access control</p>
+                  </div>
+                </div>
+                <ArrowRight className="w-4 h-4 text-muted-foreground" />
+              </Link>
+            )}
+          </div>
+        </Card>
+      )}
 
       {/* Save Button */}
       <div className="flex justify-end pt-4">

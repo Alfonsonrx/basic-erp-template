@@ -9,20 +9,27 @@ import {
   LogOut, 
   Settings,
   ChevronDown,
-  Menu
+  Menu,
+  Shield,
+  CreditCard
 } from "lucide-react";
 import type { AppDispatch } from "@/store";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleTheme, setMode } from "@reduxStore/theme/themeSlice";
+import { toggleTheme } from "@reduxStore/theme/themeSlice";
 import type { RootState } from "@types";
 import { logout } from "@reduxStore/auth/authSlice";
+import { usePermissions } from "@hooks";
 
 export default function Navbar() {
   const dispatch = useDispatch<AppDispatch>();
   const { mode } = useSelector((state: RootState) => state.theme);
+  const { user } = useSelector((state: RootState) => state.auth);
+  const { isAdmin, hasPermission } = usePermissions();
+  
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [isAdminMenuOpen, setIsAdminMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
   // Close menu when clicking outside
@@ -30,6 +37,7 @@ export default function Navbar() {
     const handleClickOutside = (event: MouseEvent) => {
       if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
         setIsUserMenuOpen(false);
+        setIsAdminMenuOpen(false);
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
@@ -45,10 +53,12 @@ export default function Navbar() {
     dispatch(toggleTheme());
   };
 
+  const showAdminMenu = isAdmin || hasPermission('billing:view') || hasPermission('admin:permissions');
+
   return (
     <header className="bg-card border-b border-border sticky top-0 z-40">
       <div className="flex items-center justify-between px-4 lg:px-6 py-3">
-        {/* Left side - Logo & Mobile Menu */}
+        {/* Left side - Logo */}
         <div className="flex items-center gap-4">
           <button className="lg:hidden p-2 hover:bg-secondary rounded-lg transition-colors">
             <Menu className="w-5 h-5" />
@@ -63,6 +73,52 @@ export default function Navbar() {
 
         {/* Right side - Actions */}
         <div className="flex items-center gap-2">
+          {/* Admin Menu */}
+          {showAdminMenu && (
+            <div className="relative mr-2">
+              <button
+                onClick={() => setIsAdminMenuOpen(!isAdminMenuOpen)}
+                className="flex items-center gap-2 p-2 hover:bg-secondary rounded-lg transition-colors"
+              >
+                <Shield className="w-5 h-5 text-primary" />
+                <span className="hidden sm:block text-sm font-medium">Admin</span>
+                <ChevronDown
+                  className={`w-4 h-4 text-muted-foreground transition-transform ${
+                    isAdminMenuOpen ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+
+              {isAdminMenuOpen && (
+                <div className="absolute right-0 top-full mt-2 w-56 bg-card border border-border rounded-lg shadow-xl z-50 py-2">
+                  <div className="px-3 py-2 text-xs font-semibold text-muted-foreground uppercase">
+                    Administration
+                  </div>
+                  {hasPermission('billing:manage') && (
+                    <Link
+                      to="/admin/billing"
+                      onClick={() => setIsAdminMenuOpen(false)}
+                      className="flex items-center gap-3 px-4 py-2 text-sm hover:bg-secondary transition-colors"
+                    >
+                      <CreditCard className="w-4 h-4" />
+                      Billing & Subscription
+                    </Link>
+                  )}
+                  {hasPermission('admin:permissions') && (
+                    <Link
+                      to="/admin/permissions"
+                      onClick={() => setIsAdminMenuOpen(false)}
+                      className="flex items-center gap-3 px-4 py-2 text-sm hover:bg-secondary transition-colors"
+                    >
+                      <Shield className="w-4 h-4" />
+                      Permissions
+                    </Link>
+                  )}
+                </div>
+              )}
+            </div>
+          )}
+
           {/* Search */}
           <div className="relative hidden md:block">
             <div
@@ -103,6 +159,12 @@ export default function Navbar() {
             )}
           </button>
 
+          {/* Notifications */}
+          <button className="p-2 hover:bg-secondary rounded-lg transition-colors relative">
+            <Bell className="w-5 h-5 text-muted-foreground" />
+            <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full" />
+          </button>
+
           {/* User Menu */}
           <div className="relative" ref={menuRef}>
             <button
@@ -112,7 +174,9 @@ export default function Navbar() {
               <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
                 <User className="w-4 h-4 text-primary" />
               </div>
-              <span className="hidden sm:block text-sm font-medium">Admin</span>
+              <span className="hidden sm:block text-sm font-medium">
+                {user?.name || "Admin"}
+              </span>
               <ChevronDown
                 className={`w-4 h-4 text-muted-foreground transition-transform ${
                   isUserMenuOpen ? "rotate-180" : ""
@@ -125,8 +189,19 @@ export default function Navbar() {
               <div className="absolute right-0 top-full mt-2 w-56 bg-card border border-border rounded-lg shadow-xl z-50 py-2">
                 {/* User Info */}
                 <div className="px-4 py-3 border-b border-border">
-                  <p className="font-semibold text-sm">Admin User</p>
-                  <p className="text-xs text-muted-foreground">admin@example.com</p>
+                  <p className="font-semibold text-sm">{user?.name || "Admin User"}</p>
+                  {/* <p className="text-xs text-muted-foreground">{user?.email || "admin@example.com"}</p> */}
+                  {user?.role && (
+                    <span className={`inline-block mt-1 text-xs px-2 py-0.5 rounded-full ${
+                      user.role === "admin"
+                        ? "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200"
+                        : user.role === "manager"
+                        ? "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200"
+                        : "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200"
+                    }`}>
+                      {user.role}
+                    </span>
+                  )}
                 </div>
 
                 {/* Menu Items */}

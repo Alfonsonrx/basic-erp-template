@@ -36,7 +36,6 @@ function Appointments({}: Props) {
     plugins: [dragPlugin],
     events,
     defaultView: ViewType.MONTH,
-    initialDate: new Date(),
     theme: { mode: mode },
   });
 

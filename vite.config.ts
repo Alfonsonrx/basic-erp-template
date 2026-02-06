@@ -16,7 +16,8 @@ export default defineConfig({
       '@utils': path.resolve(__dirname, 'src/utils'),
       '@reduxStore': path.resolve(__dirname, 'src/reduxStore'),
       '@types': path.resolve(__dirname, 'src/types'),
-      '@styles': path.resolve(__dirname, 'src/styles')
+      '@styles': path.resolve(__dirname, 'src/styles'),
+      '@hooks': path.resolve(__dirname, 'src/hooks')
     }
   },
   plugins: [

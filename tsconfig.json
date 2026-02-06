@@ -17,6 +17,8 @@
       "@reduxStore/*": ["reduxStore/*"],
       "@types": ["types"],
       "@styles": ["styles"],
+      "@hooks": ["hooks"],
+      "@hooks/*": ["hooks/*"],
       "@/*": ["*"]   // <‑‑ NEW
     },
     "types": ["node", "react", "react-dom"]

@@ -35,6 +35,7 @@
       "@reduxStore/*": ["reduxStore/*"],
       "@types": ["types"],
       "@styles": ["styles"],
+      "@hooks": ["hooks"],
       "@/*": ["*"] // <‑‑ NEW
     }
   },
