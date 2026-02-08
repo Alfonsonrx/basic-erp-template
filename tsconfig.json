@@ -18,6 +18,7 @@
       "@types": ["types"],
       "@styles": ["styles"],
       "@hooks": ["hooks"],
+      "@i18n/*": ["i18n/*"],
       "@hooks/*": ["hooks/*"],
       "@/*": ["*"]   // <‑‑ NEW
     },

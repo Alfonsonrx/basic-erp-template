@@ -1,11 +1,9 @@
 import { useState, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { 
   Moon, 
   Sun, 
   User, 
-  Bell, 
-  Search, 
   LogOut, 
   Settings,
   ChevronDown,
@@ -19,18 +17,21 @@ import { toggleTheme } from "@reduxStore/theme/themeSlice";
 import type { RootState } from "@types";
 import { logout } from "@reduxStore/auth/authSlice";
 import { usePermissions } from "@hooks";
+import { LanguageSwitcher } from "@components/LanguageSwitcher";
 
 export default function Navbar() {
   const dispatch = useDispatch<AppDispatch>();
   const { mode } = useSelector((state: RootState) => state.theme);
   const { user } = useSelector((state: RootState) => state.auth);
   const { isAdmin, hasPermission } = usePermissions();
+  const { lang } = useParams<{ lang: string }>();
   
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
   const [isAdminMenuOpen, setIsAdminMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+  
+  // Helper to generate language-prefixed paths
+  const getPath = (path: string) => `/${lang}${path}`;
 
   // Close menu when clicking outside
   useEffect(() => {
@@ -56,14 +57,14 @@ export default function Navbar() {
   const showAdminMenu = isAdmin || hasPermission('billing:view') || hasPermission('admin:permissions');
 
   return (
-    <header className="bg-card border-b border-border sticky top-0 z-40">
+    <header className="bg-primary-foreground text-foreground border-b border-border sticky top-0 z-40">
       <div className="flex items-center justify-between px-4 lg:px-6 py-3">
         {/* Left side - Logo */}
         <div className="flex items-center gap-4">
           <button className="lg:hidden p-2 hover:bg-secondary rounded-lg transition-colors">
             <Menu className="w-5 h-5" />
           </button>
-          <Link to="/" className="flex items-center gap-3 hover:opacity-80 transition-opacity">
+          <Link to={getPath('/dashboard')} className="flex items-center gap-3 hover:opacity-80 transition-opacity">
             <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
               <span className="text-primary-foreground font-bold text-sm">E</span>
             </div>
@@ -96,7 +97,7 @@ export default function Navbar() {
                   </div>
                   {hasPermission('billing:manage') && (
                     <Link
-                      to="/admin/billing"
+                      to={getPath('/admin/billing')}
                       onClick={() => setIsAdminMenuOpen(false)}
                       className="flex items-center gap-3 px-4 py-2 text-sm hover:bg-secondary transition-colors"
                     >
@@ -106,7 +107,7 @@ export default function Navbar() {
                   )}
                   {hasPermission('admin:permissions') && (
                     <Link
-                      to="/admin/permissions"
+                      to={getPath('/admin/permissions')}
                       onClick={() => setIsAdminMenuOpen(false)}
                       className="flex items-center gap-3 px-4 py-2 text-sm hover:bg-secondary transition-colors"
                     >
@@ -119,33 +120,9 @@ export default function Navbar() {
             </div>
           )}
 
-          {/* Search */}
-          <div className="relative hidden md:block">
-            <div
-              className={`flex items-center transition-all duration-300 ${
-                isSearchOpen ? "w-64" : "w-10"
-              }`}
-            >
-              <button
-                onClick={() => setIsSearchOpen(!isSearchOpen)}
-                className="p-2 hover:bg-secondary rounded-lg transition-colors"
-              >
-                <Search className="w-5 h-5 text-muted-foreground" />
-              </button>
-              {isSearchOpen && (
-                <input
-                  type="text"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Search..."
-                  className="ml-2 w-full px-3 py-1.5 text-sm bg-background border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-                  autoFocus
-                  onBlur={() => !searchQuery && setIsSearchOpen(false)}
-                />
-              )}
-            </div>
-          </div>
-
+          {/* Language Switcher */}
+          {lang && <LanguageSwitcher />}
+          
           {/* Theme Toggle */}
           <button
             onClick={toggleThemeMode}
@@ -157,12 +134,6 @@ export default function Navbar() {
             ) : (
               <Moon className="w-5 h-5 text-slate-600" />
             )}
-          </button>
-
-          {/* Notifications */}
-          <button className="p-2 hover:bg-secondary rounded-lg transition-colors relative">
-            <Bell className="w-5 h-5 text-muted-foreground" />
-            <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full" />
           </button>
 
           {/* User Menu */}
@@ -207,7 +178,7 @@ export default function Navbar() {
                 {/* Menu Items */}
                 <div className="py-1">
                   <Link
-                    to="/profile"
+                    to={getPath('/profile')}
                     onClick={() => setIsUserMenuOpen(false)}
                     className="flex items-center gap-3 px-4 py-2 text-sm hover:bg-secondary transition-colors"
                   >
@@ -215,7 +186,7 @@ export default function Navbar() {
                     My Profile
                   </Link>
                   <Link
-                    to="/settings"
+                    to={getPath('/settings')}
                     onClick={() => setIsUserMenuOpen(false)}
                     className="flex items-center gap-3 px-4 py-2 text-sm hover:bg-secondary transition-colors"
                   >

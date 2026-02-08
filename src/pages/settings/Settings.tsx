@@ -1,5 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { Card } from "@components/ui/Card";
 import { 
   Palette, 
@@ -12,12 +13,15 @@ import {
   Save,
   CreditCard,
   Users,
-  ArrowRight
+  ArrowRight,
+  Check
 } from "lucide-react";
 import { PrimaryButton } from "@components/Buttons";
 import { setMode, setThemePair, type ThemePair } from "@reduxStore/theme/themeSlice";
+import { setLocale } from "@reduxStore/locale/localeSlice";
 import type { RootState } from "@types";
 import { usePermissions } from "@hooks/usePermissions";
+import { SUPPORTED_LANGUAGES, type SupportedLanguage } from "@/i18n";
 
 const themeOptions: { value: ThemePair; label: string; color: string }[] = [
   { value: "corporate", label: "Corporate", color: "bg-blue-600" },
@@ -28,8 +32,32 @@ const themeOptions: { value: ThemePair; label: string; color: string }[] = [
 
 export default function Settings() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { lang } = useParams<{ lang: string }>();
+  const { i18n, t } = useTranslation();
   const { mode, pair } = useSelector((state: RootState) => state.theme);
+  const locale = useSelector((state: RootState) => state.locale);
   const { hasPermission } = usePermissions();
+
+  const handleLanguageChange = (newLang: SupportedLanguage) => {
+    const languageConfig = SUPPORTED_LANGUAGES.find(l => l.code === newLang);
+    if (!languageConfig) return;
+
+    const newRegion = languageConfig.region;
+
+    // Update i18n language
+    i18n.changeLanguage(newLang);
+
+    // Update Redux store
+    dispatch(setLocale({ language: newLang, region: newRegion }));
+
+    // Update URL if language prefix is present
+    if (lang && ['en', 'es'].includes(lang)) {
+      const currentPath = window.location.pathname;
+      const newPath = currentPath.replace(`/${lang}/`, `/${newLang}/`);
+      navigate(newPath, { replace: true });
+    }
+  };
 
   const handleModeChange = (newMode: 'light' | 'dark') => {
     dispatch(setMode(newMode));
@@ -148,31 +176,67 @@ export default function Settings() {
 
       {/* Language Section */}
       <Card title="Language & Region" icon={<Globe className="w-5 h-5" />}>
-        <div className="space-y-4">
+        <div className="space-y-6">
+          {/* Language Selection */}
           <div>
-            <label className="block text-sm font-medium text-foreground mb-2">
+            <label className="block text-sm font-medium text-foreground mb-3">
               Language
             </label>
-            <select className="w-full px-3 py-2 border border-border rounded-lg bg-background">
-              <option value="en">English</option>
-              <option value="es">Español</option>
-              <option value="fr">Français</option>
-              <option value="de">Deutsch</option>
-            </select>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {SUPPORTED_LANGUAGES.map(({ code, label }) => {
+                const isSelected = i18n.language === code;
+                return (
+                  <button
+                    key={code}
+                    onClick={() => handleLanguageChange(code as SupportedLanguage)}
+                    className={`flex items-center justify-between p-4 rounded-lg border-2 transition-all ${
+                      isSelected
+                        ? 'border-primary bg-primary/5'
+                        : 'border-border hover:border-primary/50'
+                    }`}
+                  >
+                    <span className="text-sm font-medium">{label}</span>
+                    {isSelected && <Check className="w-5 h-5 text-primary" />}
+                  </button>
+                );
+              })}
+            </div>
           </div>
+
+          {/* Current Locale Info */}
+          <div className="p-4 bg-background rounded-lg border border-border">
+            <h4 className="text-sm font-medium text-foreground mb-3">Current Settings</h4>
+            <div className="grid grid-cols-2 gap-4 text-sm">
+              <div>
+                <span className="text-muted-foreground">Language:</span>
+                <span className="ml-2 font-medium">{locale.language.toUpperCase()}</span>
+              </div>
+              <div>
+                <span className="text-muted-foreground">Region:</span>
+                <span className="ml-2 font-medium">{locale.region}</span>
+              </div>
+              <div>
+                <span className="text-muted-foreground">Locale:</span>
+                <span className="ml-2 font-medium">{locale.fullLocale}</span>
+              </div>
+              <div>
+                <span className="text-muted-foreground">Currency:</span>
+                <span className="ml-2 font-medium">{locale.currency}</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Timezone */}
           <div>
             <label className="block text-sm font-medium text-foreground mb-2">
               Timezone
             </label>
-            <select className="w-full px-3 py-2 border border-border rounded-lg bg-background">
-              <option value="UTC">UTC</option>
-              <option value="America/New_York">Eastern Time (ET)</option>
-              <option value="America/Chicago">Central Time (CT)</option>
-              <option value="America/Denver">Mountain Time (MT)</option>
-              <option value="America/Los_Angeles">Pacific Time (PT)</option>
-              <option value="Europe/London">London (GMT)</option>
-              <option value="Europe/Paris">Paris (CET)</option>
-            </select>
+            <div className="flex items-center gap-3 p-3 bg-background rounded-lg border border-border">
+              <span className="text-sm">{locale.timezone}</span>
+            </div>
+            <p className="text-xs text-muted-foreground mt-1">
+              Timezone is automatically set based on your selected region
+            </p>
           </div>
         </div>
       </Card>
@@ -210,7 +274,7 @@ export default function Settings() {
             </p>
             {hasPermission('billing:manage') && (
               <Link
-                to="/admin/billing"
+                to={`/${lang}/admin/billing`}
                 className="flex items-center justify-between p-3 bg-background rounded-lg border border-border hover:border-primary/50 transition-colors"
               >
                 <div className="flex items-center gap-3">
@@ -227,7 +291,7 @@ export default function Settings() {
             )}
             {hasPermission('admin:permissions') && (
               <Link
-                to="/admin/permissions"
+                to={`/${lang}/admin/permissions`}
                 className="flex items-center justify-between p-3 bg-background rounded-lg border border-border hover:border-primary/50 transition-colors"
               >
                 <div className="flex items-center gap-3">

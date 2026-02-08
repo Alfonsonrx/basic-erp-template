@@ -174,7 +174,7 @@ function Projects() {
       <CreateProjectModal
         open={isCreateModalOpen}
         onClose={() => setIsCreateModalOpen(false)}
-        onCreate={handleCreateProject}
+        // onCreate={handleCreateProject}
       />
     </div>
   );

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import {
   Home,
   Users,
@@ -13,36 +13,40 @@ import {
 } from "lucide-react";
 import { PrimaryButton } from "@components/Buttons/PrimaryButton";
 import { LinkButton } from "@components/Buttons/LinkButton";
-
-const navItems = [
-  { to: "/", icon: <Home className="mx-2 h-6 w-6" />, label: "Home" },
-  { to: "/team", icon: <IdCard className="mx-2 h-6 w-6" />, label: "Team" },
-  {
-    to: "/customers",
-    icon: <Users className="mx-2 h-6 w-6" />,
-    label: "Customers",
-  },
-  {
-    to: "/projects",
-    icon: <NotebookText className="mx-2 h-6 w-6" />,
-    label: "Projects",
-  },
-
-  {
-    to: "/inventory",
-    icon: <Box className="mx-2 h-6 w-6" />,
-    label: "Inventory",
-  },
-
-  {
-    to: "/appointments",
-    icon: <Calendar className="mx-2 h-6 w-6" />,
-    label: "Appointments",
-  },
-];
+import { useTranslation } from "react-i18next";
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { lang } = useParams<{ lang: string }>();
+  const { t } = useTranslation();
+  
+  // Helper to generate language-prefixed paths
+  const getPath = (path: string) => `/${lang}${path}`;
+
+  const navItems = [
+    { to: getPath("/dashboard"), icon: <Home className="mx-2 h-6 w-6" />, label: t("navigation.home") },
+    { to: getPath("/team"), icon: <IdCard className="mx-2 h-6 w-6" />, label: t("navigation.team") },
+    {
+      to: getPath("/customers"),
+      icon: <Users className="mx-2 h-6 w-6" />,
+      label: t("navigation.customers"),
+    },
+    {
+      to: getPath("/projects"),
+      icon: <NotebookText className="mx-2 h-6 w-6" />,
+      label: t("navigation.projects"),
+    },
+    {
+      to: getPath("/inventory"),
+      icon: <Box className="mx-2 h-6 w-6" />,
+      label: t("navigation.inventory"),
+    },
+    {
+      to: getPath("/appointments"),
+      icon: <Calendar className="mx-2 h-6 w-6" />,
+      label: t("navigation.appointments"),
+    },
+  ];
 
   return (
     /* Hidden on small screens, flex layout from lg breakpoint */
@@ -59,7 +63,7 @@ const Sidebar = () => {
         {isOpen ? (
           <>
             <ChevronsLeft className="h-6 w-6" />
-            <span className="font-bold">Close</span>
+            <span className="font-bold">{t("actions.close")}</span>
           </>
         ) : (
           <>
@@ -69,7 +73,6 @@ const Sidebar = () => {
       </PrimaryButton>
 
       {/* Navigation links – icons always visible, labels hidden when closed */}
-
       <nav className="flex flex-col gap-2">
         {navItems.map((item) => (
           <LinkButton
@@ -88,17 +91,15 @@ const Sidebar = () => {
 
       {/* Settings link – icon always visible, label hidden when closed */}
       <div className="mt-auto">
-        <Link to="/settings">
-          <LinkButton
-            to="/settings"
-            className={`hover:bg-card transition-colors py-3 rounded-md w-full ${
-              isOpen ? "justify-start" : "justify-center"
-            }`}
-          >
-            <Settings className="mx-2 h-6 w-6" />
-            <span className={isOpen ? "block" : "hidden"}>Settings</span>
-          </LinkButton>
-        </Link>
+        <LinkButton
+          to={getPath("/settings")}
+          className={`hover:bg-card transition-colors py-3 rounded-md w-full ${
+            isOpen ? "justify-start" : "justify-center"
+          }`}
+        >
+          <Settings className="mx-2 h-6 w-6" />
+          <span className={isOpen ? "block" : "hidden"}>{t("navigation.settings")}</span>
+        </LinkButton>
       </div>
     </aside>
   );

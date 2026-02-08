@@ -59,12 +59,12 @@ function ProjectDetailedCard({ project }: Props) {
   return (
     <div
       onClick={goToDetail}
-      className="p-5 bg-card rounded-lg border border-border hover:border-primary/50 hover:shadow-md transition-all cursor-pointer group"
+      className="p-5 bg-card rounded-lg border border-border hover:border-primary/50 hover:shadow-md transition-all cursor-pointer group/item"
     >
       {/* Header */}
       <div className="flex items-start justify-between mb-3">
         <div className="flex-1 min-w-0">
-          <h3 className="font-semibold text-foreground truncate group-hover:text-primary transition-colors">
+          <h3 className="font-semibold text-foreground truncate group-hover/item:text-primary transition-colors">
             {project.name}
           </h3>
           <p className="text-xs text-muted-foreground mt-0.5">{project.type}</p>
@@ -109,7 +109,7 @@ function ProjectDetailedCard({ project }: Props) {
             <span>{project.tasks_quantity}</span>
           </div>
         </div>
-        <ArrowRight className="w-4 h-4 text-foreground/50 opacity-0 group-hover:opacity-100 group-hover:text-primary transition-all" />
+        <ArrowRight className="w-4 h-4 text-foreground/50 opacity-0 group-hover/item:opacity-100 group-hover/item:text-primary transition-all" />
       </div>
     </div>
   );

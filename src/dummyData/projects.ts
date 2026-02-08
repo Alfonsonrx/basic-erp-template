@@ -56,7 +56,7 @@ export const tasks: TaskItem[] = [
       name: "Mobile App Launch"
     },
     title: "Create wireframes",
-    status: "done",
+    status: "inprogress",
     deadline: "2026-01-19"
   },
   {
@@ -76,7 +76,7 @@ export const tasks: TaskItem[] = [
       name: "Mobile App Launch"
     },
     title: "Testing",
-    status: "todo",
+    status: "inprogress",
     deadline: "2026-03-01"
   },
   {
@@ -86,7 +86,7 @@ export const tasks: TaskItem[] = [
       name: "Website Redesign"
     },
     title: "Design UI",
-    status: "done",
+    status: "inprogress",
     deadline: "2026-12-10"
   }
 ];

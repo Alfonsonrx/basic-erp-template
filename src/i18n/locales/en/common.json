@@ -1,0 +1,36 @@
+{
+  "app": {
+    "name": "Basic ERP",
+    "welcome": "Welcome"
+  },
+  "navigation": {
+    "home": "Home",
+    "profile": "Profile",
+    "team": "Team",
+    "customers": "Customers",
+    "projects": "Projects",
+    "inventory": "Inventory",
+    "appointments": "Appointments",
+    "settings": "Settings",
+    "admin": "Admin",
+    "billing": "Billing",
+    "permissions": "Permissions"
+  },
+  "actions": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "create": "Create",
+    "search": "Search",
+    "filter": "Filter",
+    "close": "Close",
+    "confirm": "Confirm",
+    "back": "Back"
+  },
+  "language": {
+    "select": "Select Language",
+    "en": "English",
+    "es": "Spanish"
+  }
+}
