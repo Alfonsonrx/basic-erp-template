@@ -1,4 +1,4 @@
-import type { ProjectCard } from "@types";
+import type { ProjectItem } from "@types";
 import {
   ListTree,
   Users,
@@ -12,7 +12,7 @@ import {
 import { useNavigate } from "react-router-dom";
 
 type Props = {
-  project: ProjectCard;
+  project: ProjectItem;
 };
 
 const statusConfig: Record<string, {

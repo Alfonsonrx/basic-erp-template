@@ -1,4 +1,4 @@
-import type { Deal, ProjectCard, TaskItem } from "./projects.types";
+import type { Deal, ProjectItem, TaskItem } from "./projects.types";
 
 export interface Teammate {
   id: number;
@@ -21,7 +21,7 @@ export interface TeammateDetailData extends TeammateItem {
     | "fired";
   createdAt: string; // ISO
   tasks: TaskItem[];
-  projects: ProjectCard[];
+  projects: ProjectItem[];
   first_lastname: string;
   second_lastname?: string;
 

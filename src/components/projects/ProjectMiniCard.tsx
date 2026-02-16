@@ -1,9 +1,9 @@
 import { Card } from "@components/ui/Card";
-import type { ProjectCard } from "@types";
+import type { ProjectItem } from "@types";
 import { useNavigate } from "react-router-dom";
 
 type Props = {
-  project: ProjectCard;
+  project: ProjectItem;
 };
 
 function ProjectMiniCard({ project }: Props) {

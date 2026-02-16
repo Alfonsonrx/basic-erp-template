@@ -229,7 +229,7 @@ export function CreateProjectModal({ open, onClose, onCreate }: CreateProjectMod
 
         {/* Actions */}
         <div className="flex gap-3 pt-4 border-t border-border">
-          <SecondaryButton type="button" onClick={handleClose} className="flex-1">
+          <SecondaryButton onClick={handleClose} className="flex-1">
             Cancel
           </SecondaryButton>
           <PrimaryButton type="submit" className="flex-1">

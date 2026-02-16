@@ -3,7 +3,7 @@ import { PrimaryButton } from "@components/Buttons/PrimaryButton";
 import { SecondaryButton } from "@components/Buttons/SecondaryButton";
 import ProjectDetailedCard from "@components/projects/ProjectDetailedCard";
 import { CreateProjectModal } from "@components/projects/CreateProjectModal";
-import type { ProjectCard } from "@types";
+import type { ProjectItem } from "@types";
 import { Plus, Search, Folder } from "lucide-react";
 import { useEffect, useState } from "react";
 
@@ -19,12 +19,12 @@ const statusConfig: Record<StatusType, { label: string; color: string }> = {
 
 function Projects() {
   const [search, setSearch] = useState("");
-  const [projects, setProjects] = useState<ProjectCard[]>([]);
+  const [projects, setProjects] = useState<ProjectItem[]>([]);
   const [statusFilter, setStatusFilter] = useState<StatusType>("all");
   const [isLoading, setIsLoading] = useState(true);
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   
-  const handleCreateProject = (newProject: ProjectCard & { assigned: number[] }) => {
+  const handleCreateProject = (newProject: ProjectItem & { assigned: number[] }) => {
     setProjects((prev) => [...prev, newProject]);
   };
 

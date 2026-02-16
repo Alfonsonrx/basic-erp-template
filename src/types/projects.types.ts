@@ -1,4 +1,5 @@
 import type { LucideIcon } from "lucide-react";
+import type { Teammate } from "./teammates.types";
 
 export interface ProjectBase {
   id: number;
@@ -6,21 +7,30 @@ export interface ProjectBase {
 }
 
 export interface ProjectItem extends ProjectBase {
+  /* To list the projects */
   startDate: string; // ISO
   deadline: string; // ISO
   status: "completed" | "cancelled" | "pending" | "critical";
   type: string;
-}
-
-export interface ProjectCard extends ProjectItem {
   tasks_quantity: number;
   personal_assigned: number;
 }
 
-export type TaskStatus = "todo" | 
-                         "inprogress" | 
-                         "approval" | 
-                         "done";
+export interface ProjectDetailedItem extends ProjectItem {
+  /* To create/retrieve/update specific project */
+  description: string;
+  project_manager: Teammate;
+  assigned_to: Teammate[]; // Teammates that are assigned to tasks of this project
+  customer: number;
+  budget: number;
+  notes: string;
+  is_active: boolean;
+}
+
+export type TaskStatus = "todo" |
+  "inprogress" |
+  "approval" |
+  "done";
 
 export interface TaskItem {
   id: number | null;
@@ -29,6 +39,10 @@ export interface TaskItem {
   status: TaskStatus;
   deadline: string; // ISO
   hour?: string | null;
+}
+
+export interface TaskDetail extends TaskItem {
+  assigned_to: Teammate[];  // Teammates that are assigned this tasks
 }
 
 export interface Deal {
@@ -41,9 +55,10 @@ export interface Deal {
   completed: boolean;
 };
 
-export interface Column {
+export interface TasksColumn {
   id: string;
   title: string;
   icon?: LucideIcon;
+  total: number;
   tasks: TaskItem[];
 }
