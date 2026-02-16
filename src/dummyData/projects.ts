@@ -116,7 +116,9 @@ export const dummyTeammates: TeammateItem[] = [
 ];
 export const dummyProrile: TeammateDetailData = {
   id: 1,
-  name: "Alice Johnson",
+  name: "Alice",
+  first_lastname: "Johnson",
+  second_lastname: "Smith",
   role: "Manager",
   email: "alice@example.com",
   phone: "+1-555-1234",

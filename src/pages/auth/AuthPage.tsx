@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { PrimaryButton } from "@components/Buttons";
 import { loginSuccess, signupSuccess } from "@reduxStore/auth/authSlice";
-import { Mail, Lock, User, Eye, EyeOff, ArrowRight } from "lucide-react";
+import { Mail, Lock, User, Eye, EyeOff, ArrowRight, ArrowLeft } from "lucide-react";
 
 const fakeAuth = (isLogin: boolean) => {
   return new Promise<{ access: string; refresh: string }>((resolve) => {
@@ -18,7 +18,10 @@ const fakeAuth = (isLogin: boolean) => {
 
 export default function AuthPage() {
   const dispatch = useDispatch();
+  const { lang } = useParams<{ lang?: string }>();
   const [isLogin, setIsLogin] = useState(true);
+  
+  const getPath = (path: string) => lang ? `/${lang}${path}` : `/en${path}`;
   
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -68,6 +71,17 @@ export default function AuthPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-background to-secondary flex items-center justify-center p-4">
       <div className="w-full max-w-md">
+        {/* Back to Landing */}
+        <div className="mb-6">
+          <Link 
+            to={getPath("/")} 
+            className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            Back to Home
+          </Link>
+        </div>
+
         {/* Logo/Brand */}
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary mb-4">

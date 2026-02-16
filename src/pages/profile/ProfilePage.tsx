@@ -62,7 +62,9 @@ export default function ProfilePage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-foreground">{user.name}</h1>
+          <h1 className="text-3xl font-bold text-foreground">
+            {user.name} {user.first_lastname}{user.second_lastname ? ` ${user.second_lastname}` : ''}
+          </h1>
           <div className="flex items-center gap-3 mt-2">
             <p className="text-muted-foreground">{user.role}</p>
             <span className="text-muted-foreground">•</span>
@@ -118,6 +120,70 @@ export default function ProfilePage() {
           {/* About section */}
           <Card title="Contact Information">
             <div className="space-y-4">
+              {/* First Name */}
+              <div className="flex items-center gap-3">
+                <div className="p-2 bg-primary/10 rounded-lg">
+                  <User className="w-4 h-4 text-primary" />
+                </div>
+                <div className="flex-1">
+                  <p className="text-xs text-muted-foreground">First Name</p>
+                  {editMode ? (
+                    <input
+                      type="text"
+                      name="name"
+                      value={user.name}
+                      onChange={handleChange}
+                      className="w-full border rounded px-2 py-1 text-sm bg-background"
+                    />
+                  ) : (
+                    <p className="text-sm font-medium">{user.name}</p>
+                  )}
+                </div>
+              </div>
+
+              {/* First Lastname */}
+              <div className="flex items-center gap-3">
+                <div className="p-2 bg-primary/10 rounded-lg">
+                  <User className="w-4 h-4 text-primary" />
+                </div>
+                <div className="flex-1">
+                  <p className="text-xs text-muted-foreground">First Lastname</p>
+                  {editMode ? (
+                    <input
+                      type="text"
+                      name="first_lastname"
+                      value={user.first_lastname}
+                      onChange={handleChange}
+                      className="w-full border rounded px-2 py-1 text-sm bg-background"
+                    />
+                  ) : (
+                    <p className="text-sm font-medium">{user.first_lastname}</p>
+                  )}
+                </div>
+              </div>
+
+              {/* Second Lastname (optional) */}
+              <div className="flex items-center gap-3">
+                <div className="p-2 bg-primary/10 rounded-lg">
+                  <User className="w-4 h-4 text-primary" />
+                </div>
+                <div className="flex-1">
+                  <p className="text-xs text-muted-foreground">Second Lastname <span className="text-xs text-muted-foreground/60">(optional)</span></p>
+                  {editMode ? (
+                    <input
+                      type="text"
+                      name="second_lastname"
+                      value={user.second_lastname || ''}
+                      onChange={handleChange}
+                      className="w-full border rounded px-2 py-1 text-sm bg-background"
+                      placeholder="Not provided"
+                    />
+                  ) : (
+                    <p className="text-sm font-medium">{user.second_lastname || '-'}</p>
+                  )}
+                </div>
+              </div>
+
               <div className="flex items-center gap-3">
                 <div className="p-2 bg-primary/10 rounded-lg">
                   <Mail className="w-4 h-4 text-primary" />

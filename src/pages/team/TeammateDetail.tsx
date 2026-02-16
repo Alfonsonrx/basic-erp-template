@@ -15,7 +15,9 @@ import type { TeammateDetailData } from "@types";
 const dummyTeammatesDetail: TeammateDetailData[] = [
   {
     id: 1,
-    name: "Alice Johnson",
+    name: "Alice",
+    first_lastname: "Johnson",
+    second_lastname: "Smith",
     role: "Manager",
     email: "alice@example.com",
     phone: "+1-555-1234",
@@ -126,7 +128,7 @@ export default function TeammateDetail() {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h1 className="text-3xl font-bold text-foreground">
-            {teammate.name}
+            {teammate.name} {teammate.first_lastname}{teammate.second_lastname ? ` ${teammate.second_lastname}` : ''}
           </h1>
           <div className="flex items-center gap-3 mt-2">
             <p className="text-muted-foreground">{teammate.role}</p>

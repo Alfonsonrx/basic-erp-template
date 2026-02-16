@@ -22,6 +22,8 @@ export interface TeammateDetailData extends TeammateItem {
   createdAt: string; // ISO
   tasks: TaskItem[];
   projects: ProjectCard[];
+  first_lastname: string;
+  second_lastname?: string;
 
   deals?: Deal[];
 };
