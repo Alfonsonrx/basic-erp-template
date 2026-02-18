@@ -1,50 +1,35 @@
-import { Link, useParams } from "react-router-dom";
-import { Moon, Sun, ArrowRight, CheckCircle } from "lucide-react";
-import { useSelector, useDispatch } from "react-redux";
-import { toggleTheme } from "@reduxStore/theme/themeSlice";
+import { Link, Navigate, useParams } from "react-router-dom";
+import { ArrowRight, CheckCircle } from "lucide-react";
+import { useSelector } from "react-redux";
 import type { RootState } from "@types";
-import type { AppDispatch } from "@/store";
 import { LanguageSwitcher } from "@components/LanguageSwitcher";
 import { PrimaryButton, SecondaryButton } from "@components/Buttons";
-
 // Landing Navbar Component
 function LandingNavbar() {
-  const dispatch = useDispatch<AppDispatch>();
-  const { mode } = useSelector((state: RootState) => state.theme);
+  const { isOnTenantSubdomain } = useSelector(
+    (state: RootState) => state.tenant,
+  );
   const { lang } = useParams<{ lang?: string }>();
 
-  const toggleMode = () => {
-    dispatch(toggleTheme());
-  };
-
   const getPath = (path: string) => lang ? `/${lang}${path}` : `/en${path}`;
-
+  if (isOnTenantSubdomain) {
+    return <Navigate to="/dashboard" />;
+  }
+  
   return (
     <header className="bg-card border-b border-border sticky top-0 z-40">
       <div className="flex items-center justify-between px-4 lg:px-6 py-3">
         {/* Logo */}
         <Link to={getPath("/")} className="flex items-center gap-3 hover:opacity-80 transition-opacity">
           <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-            <span className="text-primary-foreground font-bold text-sm">E</span>
+            <span className="text-primary-foreground font-bold text-sm">MTE</span>
           </div>
-          <h1 className="text-xl font-bold text-foreground">Basic ERP</h1>
+          <h1 className="text-xl font-bold text-foreground">MinThoth ERP</h1>
         </Link>
 
         {/* Right side - Actions */}
         <div className="flex items-center gap-3">
           {lang && <LanguageSwitcher />}
-
-          <button
-            onClick={toggleMode}
-            className="p-2 hover:bg-secondary rounded-lg transition-colors"
-            title={mode === "dark" ? "Switch to light mode" : "Switch to dark mode"}
-          >
-            {mode === "dark" ? (
-              <Sun className="w-5 h-5 text-yellow-500" />
-            ) : (
-              <Moon className="w-5 h-5 text-slate-600" />
-            )}
-          </button>
 
           <Link to={getPath("/auth")}>
             <PrimaryButton>Sign In</PrimaryButton>
@@ -108,7 +93,7 @@ export default function LandingPage() {
                 key={feature}
                 className="flex items-center gap-3 p-4 rounded-lg bg-card border border-border"
               >
-                <CheckCircle className="w-5 h-5 text-primary flex-shrink-0" />
+                <CheckCircle className="w-5 h-5 text-primary shrink-0" />
                 <span className="text-foreground font-medium">{feature}</span>
               </div>
             ))}

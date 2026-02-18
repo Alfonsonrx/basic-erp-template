@@ -4,10 +4,18 @@ import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import { SUPPORTED_LANGUAGES, DEFAULT_LANGUAGE } from "@/i18n";
 import { setLanguage } from "@reduxStore/locale/localeSlice";
+import { setTenant } from "@reduxStore/tenant/tenantSlice";
+import {
+  getSubdomain,
+  isOnTenantSubdomain,
+  getTenantApiBaseUrl,
+  getPublicApiBaseUrl,
+} from "@utils/apiConfig";
 
 /**
- * LanguageWrapper validates URL language prefix and syncs it with i18n.
- * 
+ * LanguageWrapper validates URL language prefix, syncs it with i18n,
+ * and initialises the tenant Redux state from the current subdomain.
+ *
  * - If /:lang/ is valid → syncs i18n and renders children
  * - If /:lang/ is invalid (e.g., /settings, /profile) → redirects to /:validLang/:originalPath
  */
@@ -21,6 +29,21 @@ function LanguageWrapper() {
   // Check if the lang parameter is a valid language code
   const isValidLang = lang && SUPPORTED_LANGUAGES.some((l) => l.code === lang);
 
+  // ── Tenant initialisation (runs once on mount) ──────────────────────
+  useEffect(() => {
+    const subdomain = getSubdomain();
+
+    dispatch(
+      setTenant({
+        currentTenant: subdomain,
+        isOnTenantSubdomain: isOnTenantSubdomain(),
+        tenantApiBaseUrl: getTenantApiBaseUrl(),
+        publicApiBaseUrl: getPublicApiBaseUrl(),
+      }),
+    );
+  }, [dispatch]);
+
+  // ── Language validation & sync ──────────────────────────────────────
   useEffect(() => {
     if (!lang) return;
 
@@ -30,10 +53,10 @@ function LanguageWrapper() {
       const targetLang = SUPPORTED_LANGUAGES.some((l) => l.code === i18n.language)
         ? i18n.language
         : DEFAULT_LANGUAGE;
-      
+
       // Build new path: /targetLang/rest/of/path
       const newPath = `/${targetLang}${location.pathname}${location.search}${location.hash}`;
-      
+
       // Replace to avoid history entry for the wrong URL
       navigate(newPath, { replace: true });
       return;

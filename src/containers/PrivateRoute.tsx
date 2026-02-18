@@ -6,10 +6,17 @@ function PrivateRoute() {
   const isAuthenticated = useSelector(
     (state: RootState) => state.auth.isAuthenticated,
   );
+  const { isOnTenantSubdomain } = useSelector(
+    (state: RootState) => state.tenant,
+  );
 
   if (!isAuthenticated) {
     return <Navigate to="/auth" />;
   }
+  if (!isOnTenantSubdomain) {
+    return <Navigate to="/auth" />;
+  }
+
   return <Outlet />;
 }
 
