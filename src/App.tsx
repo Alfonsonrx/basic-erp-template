@@ -9,7 +9,12 @@ import { Inventory } from "@pages/inventory";
 import { CustomerDetail, Customers } from "@pages/customers";
 import { Team, TeammateDetail } from "@pages/team";
 import { Projects, ProjectDetail } from "@pages/projects";
-import { AuthPage, ForgotPassword, AccountActivation } from "@pages/auth";
+import {
+  AuthPage,
+  ForgotPassword,
+  AccountActivation,
+  Unauthorized,
+} from "@pages/auth";
 import { Billing, Permissions } from "@pages/admin";
 import { LandingPage } from "@pages/landing";
 import AuthLayout from "@containers/AuthLayout";
@@ -23,23 +28,29 @@ import LanguageRedirect from "@containers/LanguageRedirect";
 
 // Landing or Dashboard redirect based on auth status
 function LandingOrDashboardRedirect() {
-  const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
+  const isAuthenticated = useSelector(
+    (state: RootState) => state.auth.isAuthenticated,
+  );
   const { lang } = useParams<{ lang?: string }>();
-  
+
   if (isAuthenticated) {
-    return <Navigate to={lang ? `/${lang}/dashboard` : "/en/dashboard"} replace />;
+    return (
+      <Navigate to={lang ? `/${lang}/dashboard` : "/en/dashboard"} replace />
+    );
+  } else {
+    return <Navigate to={lang ? `/${lang}/` : "/en/"} replace />;
   }
-  return <Navigate to={lang ? `/${lang}/` : "/en/"} replace />;
 }
 
 // Main routes wrapped with language support
 function AppRoutes() {
+  LandingOrDashboardRedirect();
   return (
     <Routes>
       {/* Language-prefixed routes */}
       <Route path="/:lang/*" element={<LanguageWrapper />}>
-        {/* Landing Page - Public */}
         <Route index element={<LandingPage />} />
+        {/* Landing Page - Public */}
 
         {/* Auth routes WITH language prefix */}
         <Route path="auth" element={<AuthLayout />}>
@@ -47,7 +58,10 @@ function AppRoutes() {
           <Route path="forgot-password" element={<ForgotPassword />} />
           <Route path="activate" element={<AccountActivation />} />
         </Route>
-        
+
+        {/* Unauthorized page */}
+        <Route path="unauthorized" element={<Unauthorized />} />
+
         {/* Protected app routes - require authentication */}
         <Route element={<PrivateRoute />}>
           <Route element={<Layout />}>
