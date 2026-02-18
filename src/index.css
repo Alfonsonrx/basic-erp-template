@@ -5,13 +5,13 @@
 
 /* Semantic tokens – what you actually use in components */
 @theme {
-  --color-primary:          oklch(0.68 0.25 295);
+  --color-primary: oklch(0.65 0.18 142);
   --color-primary-foreground: white;
-  --color-background:       oklch(98% 0.01 200);
-  --color-foreground:       oklch(20% 0.04 240);
-  --color-muted:            oklch(55% 0.03 240);
-  --color-card:             oklch(0.98 0.01 280);
-  --color-border:           oklch(90% 0.02 240);
+  --color-background: oklch(0.98 0.015 200);
+  --color-foreground: oklch(0.18 0.04 260);
+  --color-muted: oklch(55% 0.03 240);
+  --color-card: oklch(0.98 0.01 280);
+  --color-border: oklch(0.92 0.015 260);
   --color-muted-foreground: oklch(45% 0.04 240);
 }
 
@@ -19,77 +19,77 @@
 @layer theme {
   /* ── CORPORATE (default/example) ── */
   .theme-corporate {
-    --color-primary:          oklch(0.65 0.18 142);     /* green-ish corporate */
+    --color-primary: oklch(0.65 0.18 142); /* green-ish corporate */
     --color-primary-foreground: white;
-    --color-background:       oklch(0.98 0.015 200);
-    --color-foreground:       oklch(0.18 0.04 260);
-    --color-card:             oklch(0.98 0.01 280);
-    --color-border:           oklch(0.92 0.015 260);
+    --color-background: oklch(0.98 0.015 200);
+    --color-foreground: oklch(0.18 0.04 260);
+    --color-card: oklch(0.98 0.01 280);
+    --color-border: oklch(0.92 0.015 260);
   }
 
   .theme-corporate.dark {
-    --color-primary:          oklch(35.747% 0.0797 144.624);     /* lighter for contrast */
+    --color-primary: oklch(35.747% 0.0797 144.624); /* lighter for contrast */
     --color-primary-foreground: black;
-    --color-background:       oklch(0.18 0.03 260);
-    --color-foreground:       oklch(0.95 0.03 260);
-    --color-card:             oklch(0.24 0.03 260);
-    --color-border:           oklch(0.35 0.03 260);
+    --color-background: oklch(0.18 0.03 260);
+    --color-foreground: oklch(0.95 0.03 260);
+    --color-card: oklch(0.24 0.03 260);
+    --color-border: oklch(0.35 0.03 260);
   }
 
   /* ── PURPLE DREAM ── */
   .theme-purple {
-    --color-primary:          oklch(52.86% 0.16 300);
+    --color-primary: oklch(52.86% 0.16 300);
     --color-primary-foreground: white;
-    --color-background:       oklch(0.98 0.01 280);
-    --color-foreground:       oklch(0.15 0.04 290);
-    --color-card:             oklch(0.98 0.01 280);
-    --color-border:           oklch(0.92 0.015 260);
+    --color-background: oklch(0.98 0.01 280);
+    --color-foreground: oklch(0.15 0.04 290);
+    --color-card: oklch(0.98 0.01 280);
+    --color-border: oklch(0.92 0.015 260);
   }
 
   .theme-purple.dark {
-    --color-primary:          oklch(52.86% 0.16 300);
+    --color-primary: oklch(52.86% 0.16 300);
     --color-primary-foreground: black;
-    --color-background:       oklch(0.14 0.03 295);
-    --color-foreground:       oklch(0.98 0.01 280);
-    --color-card:             oklch(0.24 0.03 260);
-    --color-border:           oklch(0.35 0.03 260);
+    --color-background: oklch(0.14 0.03 295);
+    --color-foreground: oklch(0.98 0.01 280);
+    --color-card: oklch(0.24 0.03 260);
+    --color-border: oklch(0.35 0.03 260);
   }
 
   /* ── GREEN HORIZON ── */
   .theme-green {
-    --color-primary:          oklch(0.60 0.30 140);   /* fresh green */
+    --color-primary: oklch(0.6 0.3 140); /* fresh green */
     --color-primary-foreground: white;
-    --color-background:       oklch(0.97 0.02 150);
-    --color-foreground:       oklch(0.15 0.04 130);
-    --color-card:             oklch(0.98 0.01 280);
-    --color-border:           oklch(0.90 0.02 140);
+    --color-background: oklch(0.97 0.02 150);
+    --color-foreground: oklch(0.15 0.04 130);
+    --color-card: oklch(0.98 0.01 280);
+    --color-border: oklch(0.9 0.02 140);
   }
 
   .theme-green.dark {
-    --color-primary:          oklch(0.45 0.25 120);   /* darker green */
+    --color-primary: oklch(0.45 0.25 120); /* darker green */
     --color-primary-foreground: black;
-    --color-background:       oklch(0.20 0.05 110);
-    --color-foreground:       oklch(0.90 0.04 130);
-    --color-card:             oklch(0.25 0.03 120);
-    --color-border:           oklch(0.35 0.04 115);
+    --color-background: oklch(0.2 0.05 110);
+    --color-foreground: oklch(0.9 0.04 130);
+    --color-card: oklch(0.25 0.03 120);
+    --color-border: oklch(0.35 0.04 115);
   }
 
   /* ── BLUE SKY ── */
   .theme-blue {
-    --color-primary:          oklch(0.55 0.30 240);   /* calm blue */
+    --color-primary: oklch(0.55 0.3 240); /* calm blue */
     --color-primary-foreground: white;
-    --color-background:       oklch(0.96 0.02 260);
-    --color-foreground:       oklch(0.15 0.04 250);
-    --color-card:             oklch(0.98 0.01 280);
-    --color-border:           oklch(0.90 0.02 255);
+    --color-background: oklch(0.96 0.02 260);
+    --color-foreground: oklch(0.15 0.04 250);
+    --color-card: oklch(0.98 0.01 280);
+    --color-border: oklch(0.9 0.02 255);
   }
 
   .theme-blue.dark {
-    --color-primary:          oklch(0.40 0.25 220);   /* darker blue */
+    --color-primary: oklch(0.4 0.25 220); /* darker blue */
     --color-primary-foreground: black;
-    --color-background:       oklch(0.18 0.05 210);
-    --color-foreground:       oklch(0.90 0.04 230);
-    --color-card:             oklch(0.25 0.03 200);
-    --color-border:           oklch(0.35 0.04 190);
+    --color-background: oklch(0.18 0.05 210);
+    --color-foreground: oklch(0.9 0.04 230);
+    --color-card: oklch(0.25 0.03 200);
+    --color-border: oklch(0.35 0.04 190);
   }
 }

@@ -190,7 +190,7 @@ export function CreateProjectModal({ open, onClose, onCreate }: CreateProjectMod
                   {selectedTeammates.length !== 1 ? "s" : ""} selected
                 </span>
               </div>
-              <div className="divide-y divide-border max-h-[200px] overflow-y-auto">
+              <div className="divide-y divide-border max-h-50 overflow-y-auto">
                 {selectedTeammates.map((teammate) => (
                   <div
                     key={teammate.id}
