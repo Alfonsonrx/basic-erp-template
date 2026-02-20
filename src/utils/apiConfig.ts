@@ -67,6 +67,10 @@ function buildApiOrigin(subdomain?: string | null): string {
   return `${protocol}://${host}${portSuffix}`;
 }
 
+
+// Use relative API base - nginx handles the proxy
+const API_BASE = '/api';
+
 /**
  * Build a full tenant-specific API URL.
  *
@@ -77,7 +81,7 @@ function buildApiOrigin(subdomain?: string | null): string {
  */
 export function getTenantApiUrl(path: string): string {
   const subdomain = getSubdomain();
-  return `${buildApiOrigin(subdomain)}${path}`;
+  return `${buildApiOrigin(subdomain)}${API_BASE}${path}`;
 }
 
 /**
@@ -87,19 +91,21 @@ export function getTenantApiUrl(path: string): string {
  *          → "http://localhost:8000/users/auth/signup/"
  */
 export function getPublicApiUrl(path: string): string {
-  return `${buildApiOrigin()}${path}`;
+  return `${buildApiOrigin()}${API_BASE}${path}`;
 }
 
 /**
  * Return the tenant API base origin (no path).
  */
 export function getTenantApiBaseUrl(): string {
-  return buildApiOrigin(getSubdomain());
+  // return buildApiOrigin(getSubdomain());
+  return `${buildApiOrigin(getSubdomain())}${API_BASE}`;
 }
 
 /**
  * Return the public API base origin (no path).
  */
 export function getPublicApiBaseUrl(): string {
-  return buildApiOrigin();
+  // return buildApiOrigin();
+  return `${buildApiOrigin()}${API_BASE}`;
 }

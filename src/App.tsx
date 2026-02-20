@@ -56,8 +56,8 @@ function AppRoutes() {
         <Route path="auth" element={<AuthLayout />}>
           <Route index element={<AuthPage />} />
           <Route path="forgot-password" element={<ForgotPassword />} />
-          <Route path="activate" element={<AccountActivation />} />
         </Route>
+        <Route path="activate" element={<AccountActivation />} />
 
         {/* Unauthorized page */}
         <Route path="unauthorized" element={<Unauthorized />} />
