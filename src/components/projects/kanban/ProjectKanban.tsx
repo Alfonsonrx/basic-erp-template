@@ -1,116 +1,15 @@
 "use client";
 
 // import * as React from "react";
-import type { Column, TaskItem } from "@types";
+import type { TaskItem, TasksColumn } from "@types";
 import KanbanColumn from "./KanbanColumn";
 import { useState, type DragEvent } from "react";
 import { dummyProjectColumns } from "@/dummyData/projects";
 
-// const initialProjectColumns: Column[] = [
-//   {
-//     id: "todo",
-//     title: "To Do",
-//     tasks: [
-//       {
-//         id: 1,
-//         title: "Combinatorics and validity",
-//         status: "todo",
-//         deadline: "2026-01-11",
-//       },
-//       {
-//         id: 2,
-//         title: "Hypothesis Testing",
-//         status: "todo",
-//         deadline: "2026-01-11",
-//       },
-//       {
-//         id: 3,
-//         title: "Time Series Analysis",
-//         status: "todo",
-//         deadline: "2026-01-11",
-//       },
-//       {
-//         id: 4,
-//         title: "Clustering Algorithms",
-//         status: "todo",
-//         deadline: "2026-01-11",
-//       },
-//     ],
-//   },
-//   {
-//     id: "in-progress",
-//     title: "In Progress",
-//     tasks: [
-//       {
-//         id: 5,
-//         title: "A/B Testing: Designing and Analyzing Experiments",
-//         status: "inprogress",
-//         deadline: "2026-01-11",
-//       },
-//       {
-//         id: 6,
-//         title: "Data Visualization",
-//         status: "inprogress",
-//         deadline: "2026-01-11",
-//       },
-//     ],
-//   },
-//   {
-//     id: "approval",
-//     title: "Approval",
-//     icon: <Clock className="size-5 text-amber-500" />,
-//     tasks: [
-//       {
-//         id: 7,
-//         title: "Principal Component Analysis",
-//         status: "approval",
-//         deadline: "2026-01-11",
-//       },
-//       {
-//         id: 8,
-//         title: "Linear, Logistic, and Poisson Regression",
-//         status: "approval",
-//         deadline: "2026-01-11",
-//       },
-//       {
-//         id: 9,
-//         title: "One-Sample Test",
-//         status: "approval",
-//         deadline: "2026-01-11",
-//       },
-//     ],
-//   },
-//   {
-//     id: "completed",
-//     title: "Completed",
-//     icon: <CheckCircle2 className="size-5 text-teal-500" />,
-//     tasks: [
-//       {
-//         id: 10,
-//         title: "Exponential Smoothing",
-//         status: "done",
-//         deadline: "2026-01-11",
-//       },
-//       {
-//         id: 11,
-//         title: "Real-world Dataset",
-//         status: "done",
-//         deadline: "2026-01-11",
-//       },
-//       {
-//         id: 12,
-//         title: "Support Vector Machines",
-//         status: "done",
-//         deadline: "2026-01-11",
-//       },
-//     ],
-//   },
-// ];
-
 export function KanbanBoard() {
-  const [kanbanInfo, setKanbanInfo] = useState<Column[]>(dummyProjectColumns);
+  const [kanbanInfo, setKanbanInfo] = useState<TasksColumn[]>(dummyProjectColumns);
 
-  const [columns, setColumns] = useState<Column[]>(kanbanInfo);
+  const [columns, setColumns] = useState<TasksColumn[]>(kanbanInfo);
   const [dragOverColumn, setDragOverColumn] = useState<string | null>(null);
   const [draggedTaskId, setDraggedTaskId] = useState<number | null>(null);
 

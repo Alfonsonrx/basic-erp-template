@@ -20,8 +20,8 @@ import { PrimaryButton } from "@components/Buttons";
 import { setMode, setThemePair, type ThemePair } from "@reduxStore/theme/themeSlice";
 import { setLocale } from "@reduxStore/locale/localeSlice";
 import type { RootState } from "@types";
-import { usePermissions } from "@hooks/usePermissions";
 import { SUPPORTED_LANGUAGES, type SupportedLanguage } from "@/i18n";
+import { usePermissions } from "@hooks";
 
 const themeOptions: { value: ThemePair; label: string; color: string }[] = [
   { value: "corporate", label: "Corporate", color: "bg-blue-600" },

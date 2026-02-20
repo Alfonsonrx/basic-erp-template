@@ -101,6 +101,8 @@ export const TeammateDetailModal: React.FC<Props> = ({
         deadline: "2025‑08‑01",
         status: "completed",
         type: "Enterprise Subscription",
+        tasks_quantity: 4,
+        personal_assigned: 4,
       },
       {
         id: 202,
@@ -109,6 +111,8 @@ export const TeammateDetailModal: React.FC<Props> = ({
         deadline: "2025‑08‑01",
         status: "pending",
         type: "Add‑on Package",
+        tasks_quantity: 4,
+        personal_assigned: 4,
       },
       {
         id: 203,
@@ -117,6 +121,8 @@ export const TeammateDetailModal: React.FC<Props> = ({
         deadline: "2025‑08‑01",
         status: "completed",
         type: "Enterprise Subscription",
+        tasks_quantity: 4,
+        personal_assigned: 4,
       },
       {
         id: 204,
@@ -125,6 +131,8 @@ export const TeammateDetailModal: React.FC<Props> = ({
         deadline: "2025‑08‑01",
         status: "pending",
         type: "Add‑on Package",
+        tasks_quantity: 4,
+        personal_assigned: 4,
       },
       {
         id: 205,
@@ -133,6 +141,8 @@ export const TeammateDetailModal: React.FC<Props> = ({
         deadline: "2025‑08‑01",
         status: "completed",
         type: "Enterprise Subscription",
+        tasks_quantity: 4,
+        personal_assigned: 4,
       },
     ],
   };

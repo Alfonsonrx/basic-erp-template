@@ -1,4 +1,4 @@
-import type { Teammate, TaskItem, TeammateItem, ProjectItem, ProjectDetail, TeammateDetailData, TasksColumn } from "@types";
+import type { Teammate, TaskItem, TeammateItem, ProjectItem, TeammateDetailData, TasksColumn, ProjectDetailedItem } from "@types";
 import { CheckCircle2, Clock } from "lucide-react";
 
 export const dummyProjects: ProjectItem[] = [
@@ -251,7 +251,7 @@ export const projectBudgets = new Map<number, number>([
 ]);
 
 // Dummy data for ProjectDetail (extends ProjectItem with additional fields)
-export const dummyProjectDetails: ProjectDetail[] = [
+export const dummyProjectDetails: ProjectDetailedItem[] = [
   {
     // ProjectItem fields
     id: 1,
@@ -345,6 +345,6 @@ export const dummyProjectDetails: ProjectDetail[] = [
 ];
 
 // Helper function to get project detail by ID
-export const getProjectDetailById = (id: number): ProjectDetail | undefined => {
+export const getProjectDetailById = (id: number): ProjectDetailedItem | undefined => {
   return dummyProjectDetails.find((p) => p.id === id);
 };

@@ -33,7 +33,7 @@ export type TaskStatus = "todo" |
   "done";
 
 export interface TaskItem {
-  id: number | null;
+  id: number;
   project?: ProjectBase | null;
   title: string;
   status: TaskStatus;

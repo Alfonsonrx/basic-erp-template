@@ -79,12 +79,12 @@ function TaskTable({ initialTasks }: Props) {
                 {editingId === t.id ? (
                   <input
                     type="date"
-                    value={t.date}
-                    onChange={(e) => handleChange(t.id, "date", e.target.value)}
+                    value={t.deadline}
+                    onChange={(e) => handleChange(t.id, "deadline", e.target.value)}
                     className="w-full border rounded px-1 focus:outline-none focus:ring-2 focus:ring-primary text-foreground"
                   />
                 ) : (
-                  t.date
+                  t.deadline
                 )}
               </td>
               <td className="px-2 py-2 hidden lg:table-cell">

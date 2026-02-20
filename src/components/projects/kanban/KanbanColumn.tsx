@@ -1,8 +1,8 @@
-import type { Column } from "@types";
+import type { TasksColumn } from "@types";
 import TaskCard from "./TaskCard";
 
 type Props = {
-  column: Column;
+  column: TasksColumn;
   onDragStart: (e: React.DragEvent, taskId: number| null) => void;
   onDragOver: (e: React.DragEvent) => void;
   onDrop: (e: React.DragEvent, columnId: string) => void;
