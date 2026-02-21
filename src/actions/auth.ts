@@ -3,6 +3,8 @@ import type { AppDispatch } from "store";
 import { load_user } from "./loadUser";
 import {
   activationFail,
+  activationResendFail,
+  activationResendSuccess,
   activationSuccess,
   loginFail,
   loginSuccess,
@@ -10,7 +12,7 @@ import {
   signupFail,
   signupSuccess,
 } from "@reduxStore/auth/authSlice";
-import { apiLogin, apiLogout, apiSignup, apiActivateAccount } from "@/api/auth";
+import { apiLogin, apiLogout, apiSignup, apiActivateAccount, apiResendActivationToken } from "@/api/auth";
 import type { SignupPayload } from "@/api/auth";
 
 /**
@@ -67,8 +69,8 @@ export const logoutAccount = () => async (dispatch: AppDispatch) => {
 };
 
 /**
- * Activate account – public schema endpoint.
- * URL: {domain}/users/auth/activate/
+ * Activate account – tenant-specific endpoint.
+ * URL: {schema_name}.{domain}/users/auth/activate/
  */
 export const activateAccount =
   (token: string | null) => async (dispatch: AppDispatch) => {
@@ -84,6 +86,28 @@ export const activateAccount =
       const error = err as AxiosError | Error;
       const errorMessage = error.message || "Activation failed";
       dispatch(activationFail(errorMessage));
+      throw err;
+    }
+  };
+
+/**
+ * Resend activation token – public schema endpoint.
+ * URL: {domain}/users/auth/resend-activation/
+ */
+export const resendActivationToken =
+  (email: string | null) => async (dispatch: AppDispatch) => {
+    if (!email) {
+      dispatch(activationResendFail("No activation token provided"));
+      return;
+    }
+
+    try {
+      await apiResendActivationToken(email);
+      dispatch(activationResendSuccess());
+    } catch (err) {
+      const error = err as AxiosError | Error;
+      const errorMessage = error.message || "Activation failed";
+      dispatch(activationResendFail(errorMessage));
       throw err;
     }
   };

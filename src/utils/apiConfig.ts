@@ -69,7 +69,7 @@ function buildApiOrigin(subdomain?: string | null): string {
 
 
 // Use relative API base - nginx handles the proxy
-const API_BASE = '/api';
+const API_BASE = import.meta.env.VITE_API_BASE;
 
 /**
  * Build a full tenant-specific API URL.

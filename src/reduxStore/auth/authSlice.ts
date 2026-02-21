@@ -105,6 +105,13 @@ const authSlice = createSlice({
       state.error = action.payload || "Nickname reset confirmation failed";
     },
 
+    // Activation Resend
+    activationResendSuccess(state) {
+      // In case of
+    },
+    activationResendFail(state, action: PayloadAction<string | null>) {
+      state.error = action.payload || "Activation resend failed";
+    },
     // Activation
     activationSuccess(state) {
       // In case of
@@ -134,6 +141,8 @@ export const {
   nicknameResetFail,
   nicknameResetConfirmSuccess,
   nicknameResetConfirmFail,
+  activationResendSuccess,
+  activationResendFail,
   activationSuccess,
   activationFail,
 } = authSlice.actions;

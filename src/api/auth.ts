@@ -61,6 +61,11 @@ export function apiSetPassword(token: string, password: string, password_confirm
   );
 }
 
+/** POST /users/auth/activate/ – Tenant-specific */
+export function apiActivateAccount(token: string) {
+  return apiClient.post(getTenantApiUrl('/users/auth/activate/'), { token });
+}
+
 // ---------------------------------------------------------------------------
 // Public schema endpoints
 // ---------------------------------------------------------------------------
@@ -70,9 +75,9 @@ export function apiSignup(data: SignupPayload) {
   return apiClient.post(getPublicApiUrl('/users/auth/signup/'), data);
 }
 
-/** POST /users/auth/activate/ – Public schema */
-export function apiActivateAccount(token: string) {
-  return apiClient.post(getPublicApiUrl('/users/auth/activate/'), { token });
+/** POST /users/auth/signup/ – Public schema */
+export function apiResendActivationToken(email: string) {
+  return apiClient.post(getPublicApiUrl('/users/auth/resend-activation/'), { email });
 }
 
 /** POST /users/auth/verify/ – Public schema */
