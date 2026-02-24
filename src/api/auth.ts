@@ -34,36 +34,50 @@ export interface SignupPayload {
 
 /** POST /users/auth/login/ – Tenant-specific */
 export function apiLogin(email: string, password: string) {
-  return apiClient.post<LoginResponse>(
-    getTenantApiUrl('/users/auth/login/'),
-    { email, password },
-  );
+  // return apiClient.post<LoginResponse>(
+  //   getTenantApiUrl('/users/auth/login/'),
+  //   { email, password },
+  // );
+  return {
+    "data": {
+      "refresh": "fakeRefresh",
+      "access": "fakeAccess"
+    }
+  }
 }
 
 /** POST /users/auth/logout/ – Tenant-specific */
 export function apiLogout() {
-  return apiClient.post(getTenantApiUrl('/users/auth/logout/'));
+  // return apiClient.post(getTenantApiUrl('/users/auth/logout/'));
+  return ;
 }
 
 /** POST /users/auth/refresh/ – Tenant-specific */
 export function apiRefreshToken(refresh: string) {
-  return apiClient.post<{ access: string }>(
-    getTenantApiUrl('/users/auth/refresh/'),
-    { refresh },
-  );
+  // return apiClient.post<{ access: string }>(
+  //   getTenantApiUrl('/users/auth/refresh/'),
+  //   { refresh },
+  // );
+  return {
+    "data": {
+      "access": "fakeAccess"
+    }
+  }
 }
 
 /** POST /users/auth/set-password/ – Tenant-specific (invited users / password reset) */
 export function apiSetPassword(token: string, password: string, password_confirm: string) {
-  return apiClient.post(
-    getTenantApiUrl('/users/auth/set-password/'),
-    { token, password, password_confirm },
-  );
+  // return apiClient.post(
+  //   getTenantApiUrl('/users/auth/set-password/'),
+  //   { token, password, password_confirm },
+  // );
+  return ;
 }
 
 /** POST /users/auth/activate/ – Tenant-specific */
 export function apiActivateAccount(token: string) {
-  return apiClient.post(getTenantApiUrl('/users/auth/activate/'), { token });
+  // return apiClient.post(getTenantApiUrl('/users/auth/activate/'), { token });
+  return ;
 }
 
 // ---------------------------------------------------------------------------
@@ -72,15 +86,18 @@ export function apiActivateAccount(token: string) {
 
 /** POST /users/auth/signup/ – Public schema */
 export function apiSignup(data: SignupPayload) {
-  return apiClient.post(getPublicApiUrl('/users/auth/signup/'), data);
+  // return apiClient.post(getPublicApiUrl('/users/auth/signup/'), data);
+  return ;
 }
 
 /** POST /users/auth/signup/ – Public schema */
 export function apiResendActivationToken(email: string) {
-  return apiClient.post(getPublicApiUrl('/users/auth/resend-activation/'), { email });
+  // return apiClient.post(getPublicApiUrl('/users/auth/resend-activation/'), { email });
+  return ;
 }
 
 /** POST /users/auth/verify/ – Public schema */
 export function apiVerifyToken(token: string) {
-  return apiClient.post(getPublicApiUrl('/users/auth/verify/'), { token });
+  // return apiClient.post(getPublicApiUrl('/users/auth/verify/'), { token });
+  return ;
 }
