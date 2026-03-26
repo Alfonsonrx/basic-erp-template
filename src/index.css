@@ -5,7 +5,7 @@
 
 /* Semantic tokens – what you actually use in components */
 @theme {
-  --color-primary: oklch(0.65 0.18 142);
+  --color-primary: var(--color-sky-600);
   --color-primary-foreground: white;
   --color-background: oklch(0.98 0.015 200);
   --color-foreground: oklch(0.18 0.04 260);
@@ -13,6 +13,7 @@
   --color-card: oklch(0.98 0.01 280);
   --color-border: oklch(0.92 0.015 260);
   --color-muted-foreground: oklch(45% 0.04 240);
+  --color-primary-light: #7a85f5;
 }
 
 /* Theme pairs – override semantics per company + light/dark */
@@ -93,3 +94,15 @@
     --color-border: oklch(0.35 0.04 190);
   }
 }
+
+@layer utilities {
+  .bg-topography {
+    background-image: url("/topography.svg");
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 120px;
+}
+

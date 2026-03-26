@@ -1,0 +1,25 @@
+{
+    "opinions": [
+        {
+        "id": 1,
+        "name": "Juan Pérez",
+        "role": "CEO de Tech Solutions",
+        "valoration": 5,
+        "text": "Este software ha transformado completamente la forma en que gestionamos nuestro negocio. Es intuitivo, eficiente y el soporte al cliente es excepcional."
+        },
+        {
+        "id": 2,
+        "name": "María Gómez",
+        "role": "Directora de Operaciones en Innovatech",
+        "valoration": 5,
+        "text": "La integración con otras herramientas es perfecta y ha mejorado significativamente nuestra productividad. No podríamos estar más satisfechos con esta solución."
+        },
+        {
+        "id": 3,
+        "name": "Carlos Rodríguez",
+        "role": "Gerente de Proyectos en FutureCorp",
+        "valoration": 4,
+        "text": "La facilidad de uso y las funcionalidades avanzadas han superado nuestras expectativas. Es una herramienta indispensable para nuestro equipo."
+        }
+    ]
+}

@@ -16,7 +16,7 @@ export const PrimaryButton: React.FC<{
     className={`inline-flex items-center gap-1 px-2 py-1 rounded-md ${
       disabled
         ? "bg-muted text-primary-foreground hover:bg-bg-muted-foreground cursor-not-allowed"
-        : "bg-primary text-foreground hover:bg-primary/90"
+        : "bg-primary text-primary-foreground hover:bg-primary/90"
     } ${className}`}
   >
     {children}

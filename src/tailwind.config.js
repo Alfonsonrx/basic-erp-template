@@ -21,6 +21,9 @@ module.exports = {
       textColor: colors,
       ringColor: colors,
       // accentColor, caretColor, etc...
+      backgroundImage: {
+        'topography': "url('/topography.svg')",
+      },
     },
   },
   plugins: [],
